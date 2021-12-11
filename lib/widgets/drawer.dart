@@ -9,79 +9,112 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        child: ListView(
+        child: Column(
           children: [
-            ListTile(
-              selected: true,
-              title: const Text('Today'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, "/today");
-              },
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                children: [
+                  ListTile(
+                    selected: true,
+                    title: const Text('Today'),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, "/today");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('This week'),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, "/this_week");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('All'),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, "/all");
+                    },
+                  ),
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    title: const Text('Subject 1'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 2'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Subject 3'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Some'),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, "/some");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Some'),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/some");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Log out'),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, "/login");
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              height: 1,
+              thickness: 1,
             ),
             ListTile(
-              title: const Text('This week'),
+              title: const Text('Settings'),
               onTap: () {
-                Navigator.pushReplacementNamed(context, "/this_week");
-              },
-            ),
-            ListTile(
-              title: const Text('All'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, "/all");
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 1'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 2'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Subject 3'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Log out'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, "/login");
+                Navigator.pushNamed(context, "/settings");
               },
             ),
           ],

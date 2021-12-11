@@ -22,8 +22,8 @@ class _TodayPageState extends State<TodayPage> {
 
   void populateTasks() {
     tasks = Iterable<int>.generate(16)
-        .map(
-            (i) => TaskItem('Task ' + (i + 1).toString(), 'About this task', 'today'))
+        .map((i) =>
+            TaskItem('Task ' + (i + 1).toString(), 'About this task', 'today'))
         .toList();
   }
 
@@ -37,6 +37,7 @@ class _TodayPageState extends State<TodayPage> {
       body: ListView.builder(
         addAutomaticKeepAlives: false,
         itemCount: tasks.length,
+        padding: const EdgeInsets.only(bottom: 40),
         itemBuilder: (context, index) {
           final item = tasks[index];
           return ListTile(

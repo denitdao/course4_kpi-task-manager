@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterStudentPage extends StatefulWidget {
+  const RegisterStudentPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterStudentPage> createState() => _RegisterStudentPageState();
+}
+
+class _RegisterStudentPageState extends State<RegisterStudentPage> {
+  int _selectedIndex = 0;
+
+  void setIndex(value) {
+    setState(() {
+      _selectedIndex = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: setIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book_rounded),
+            label: 'Student',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MdiIcons.humanMaleBoard),
+            label: 'Teacher',
+          ),
+        ],
+      ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -21,10 +48,31 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Log into this app using existing accout", 
+                      "Create new student account",
                       style: Theme.of(context).textTheme.headline6,
                     )
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 6, 24, 6),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'First name',
+                    hintText: 'Enter your first name...',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 6, 24, 6),
+                child: TextFormField(
+                  // controller: emailAddressController,
+                  decoration: const InputDecoration(
+                    labelText: 'Last Name',
+                    hintText: 'Enter your last name...',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
               Padding(
@@ -39,7 +87,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(24, 6, 24, 48),
+                padding: const EdgeInsets.fromLTRB(24, 6, 24, 24),
                 child: TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Password',
@@ -49,22 +97,12 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 48, 0, 6),
+                padding: const EdgeInsets.fromLTRB(0, 24, 0, 12),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/today');
                   },
-                  child: const Text("Sign in"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 6, 0, 24),
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/today');
-                  },
-                  icon: const Icon(MdiIcons.google),
-                  label: const Text("Sign in with Google"),
+                  child: const Text("Sign up"),
                 ),
               ),
               Padding(
@@ -72,16 +110,16 @@ class LoginPage extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text("Don't have an accout?")],
+                  children: const [Text("Already have an accout?")],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/register_student');
+                    Navigator.pushReplacementNamed(context, '/login');
                   },
-                  child: const Text("Sign up"),
+                  child: const Text("Sign in"),
                 ),
               ),
             ]),
