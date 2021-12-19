@@ -66,42 +66,6 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text('Subject 3'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Subject 3'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Subject 3'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Subject 3'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Subject 3'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Some'),
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, "/some");
-                    },
-                  ),
-                  ListTile(
                     title: const Text('Some'),
                     onTap: () {
                       Navigator.pushNamed(context, "/some");

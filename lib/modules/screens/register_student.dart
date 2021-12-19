@@ -69,7 +69,7 @@ class _RegisterStudentPageState extends AuthState<RegisterStudentPage> {
   }
 
   Future _getProfile() async {
-    final response = await supabase.from('group').select('title').execute();
+    final response = await supabase.from('groups').select('title').execute();
     final error = response.error;
     if (error != null && response.status != 406) {
       context.showErrorSnackBar(message: error.message);
@@ -112,27 +112,28 @@ class _RegisterStudentPageState extends AuthState<RegisterStudentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _setIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book_rounded),
-            label: 'Student',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.humanMaleBoard),
-            label: 'Teacher',
-          ),
-        ],
-      ),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 96, 0, 0),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _setIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book_rounded),
+              label: 'Student',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(MdiIcons.humanMaleBoard),
+              label: 'Teacher',
+            ),
+          ],
+        ),
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(0, 96, 0, 0),
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 48, 0, 48),
@@ -207,6 +208,9 @@ class _RegisterStudentPageState extends AuthState<RegisterStudentPage> {
                     hintText: 'Enter your password...',
                     border: OutlineInputBorder(),
                   ),
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
               ),
               Padding(

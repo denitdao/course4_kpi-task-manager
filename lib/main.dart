@@ -7,6 +7,7 @@ import 'core/auth/secrets.dart';
 import 'modules/screens/register_student.dart';
 import 'modules/screens/register_teacher.dart';
 import 'modules/screens/some.dart';
+import 'modules/screens/task_edit.dart';
 import 'modules/screens/today.dart';
 
 Future<void> main() async {
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/this_week': (BuildContext context) =>
             const TodayPage(title: 'This week'),
         '/all': (BuildContext context) => const TodayPage(title: 'All tasks'),
-        '/task': (BuildContext context) => const TodayPage(title: 'Task'),
+        '/task': (BuildContext context) => const TaskEdit(),
         '/some': (BuildContext context) => const FormWidgetsDemo(),
       },
     );

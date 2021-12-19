@@ -74,13 +74,14 @@ class _LoginPageState extends AuthState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 96, 0, 0),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(0, 96, 0, 0),
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 48, 0, 48),
@@ -115,6 +116,9 @@ class _LoginPageState extends AuthState<LoginPage> {
                     hintText: 'Enter your password...',
                     border: OutlineInputBorder(),
                   ),
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
               ),
               Padding(
