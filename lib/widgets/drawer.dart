@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/constants/supabase_constants.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
     Key? key,
   }) : super(key: key);
+
+  Future<void> _signOut(BuildContext context) async {
+    final response = await supabase.auth.signOut();
+    final error = response.error;
+    if (error != null) {
+      context.showErrorSnackBar(message: error.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +109,7 @@ class AppDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     title: const Text('Log out'),
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, "/login");
-                    },
+                    onTap: () => _signOut(context),
                   ),
                 ],
               ),
@@ -112,6 +119,7 @@ class AppDrawer extends StatelessWidget {
               thickness: 1,
             ),
             ListTile(
+              leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
                 Navigator.pushNamed(context, "/settings");

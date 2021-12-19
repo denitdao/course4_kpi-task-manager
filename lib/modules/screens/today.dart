@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/core/auth/auth_required_state.dart';
 import 'package:task_manager/widgets/drawer.dart';
 import 'package:task_manager/modules/models/task_item.dart';
 
@@ -11,7 +12,7 @@ class TodayPage extends StatefulWidget {
   _TodayPageState createState() => _TodayPageState();
 }
 
-class _TodayPageState extends State<TodayPage> {
+class _TodayPageState extends AuthRequiredState<TodayPage> {
   List<TaskItem> tasks = [];
 
   @override
@@ -23,7 +24,7 @@ class _TodayPageState extends State<TodayPage> {
   void populateTasks() {
     tasks = Iterable<int>.generate(16)
         .map((i) =>
-            TaskItem('Task ' + (i + 1).toString(), 'About this task', 'today'))
+            TaskItem(false, 'Task ' + (i + 1).toString(), 'About this task', 'today', 'Subject title'))
         .toList();
   }
 

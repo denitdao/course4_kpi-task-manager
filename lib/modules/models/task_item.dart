@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TaskItem {
+  final bool isCompleted;
   final String title;
   final String description;
   final String date;
+  final String subjectTitle;
 
-  TaskItem(this.title, this.description, this.date);
+  TaskItem(this.isCompleted, this.title, this.description, this.date, this.subjectTitle);
 
   Widget buildTitle(BuildContext context) {
     return Text(title);
@@ -18,13 +20,6 @@ class TaskItem {
   Widget buildDate(BuildContext context) {
     return Text(date);
   }
-
-/*  DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.deepPurpleAccent,
-      ),
-      child: Text('subject'),
-    ) */
 
   void Function() buildOnTap(BuildContext context) {
     return () => {Navigator.pushNamed(context, "/task")};
