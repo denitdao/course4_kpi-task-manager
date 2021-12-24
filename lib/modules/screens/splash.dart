@@ -16,7 +16,6 @@ class _SplashScreenState extends AuthState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    print('Recovering session');
     const _duration = Duration(seconds: 1);
     recoverSessionTimer = Timer(_duration, () {
       recoverSupabaseSession();
@@ -25,7 +24,6 @@ class _SplashScreenState extends AuthState<SplashScreen> {
 
   @override
   void onReceivedAuthDeeplink(Uri uri) {
-    print('Recieved auth deeplink');
     if (recoverSessionTimer != null) {
       recoverSessionTimer!.cancel();
     }

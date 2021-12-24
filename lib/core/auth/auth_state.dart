@@ -12,9 +12,22 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
   }
 
   @override
-  void onAuthenticated(Session session) {
+  Future<void> onAuthenticated(Session session) async {
     if (mounted) {
-      Navigator.pushNamedAndRemoveUntil(context, '/today', (route) => false);
+      final user = supabase.auth.currentUser;
+      final response = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', user!.id)
+          .execute(count: CountOption.exact);
+
+      if (response.count == 0) {
+        context.showSnackBar(message: 'Please first register new account');
+        await supabase.rpc('delete_user').execute();
+        supabase.auth.signOut();
+      } else {
+        Navigator.pushNamedAndRemoveUntil(context, '/today', (route) => false);
+      }
     }
   }
 
