@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TaskEdit extends StatefulWidget {
-  const TaskEdit({Key? key}) : super(key: key);
+class TaskView extends StatefulWidget {
+  TaskView({Key? key, required this.id}) : super(key: key);
+
+  String id;
 
   @override
-  State<TaskEdit> createState() => _TaskEditState();
+  State<TaskView> createState() => _TaskEditState();
 }
 
-class _TaskEditState extends State<TaskEdit> {
+class _TaskEditState extends State<TaskView> {
   bool _isLoading = false;
   late final TextEditingController _titleController;
 
@@ -35,7 +37,7 @@ class _TaskEditState extends State<TaskEdit> {
         ),
         body: ListView(
           children: [
-            Text('Title'),
+            Text('Title(' + widget.id + ')'),
             Text('description'),
           ],
         ),

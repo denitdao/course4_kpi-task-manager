@@ -81,19 +81,13 @@ class _LoginPageState extends AuthState<LoginPage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(0, 96, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 84, 0, 0),
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 48, 0, 48),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Log into this app using existing accout",
-                      style: Theme.of(context).textTheme.headline6,
-                    )
-                  ],
+                child: Text(
+                  "Log into this app using existing accout",
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               ),
               Padding(
@@ -104,6 +98,7 @@ class _LoginPageState extends AuthState<LoginPage> {
                     labelText: 'Email Address',
                     hintText: 'Enter your email...',
                     border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.all(10),
                   ),
                 ),
               ),
@@ -115,6 +110,7 @@ class _LoginPageState extends AuthState<LoginPage> {
                     labelText: 'Password',
                     hintText: 'Enter your password...',
                     border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.all(10),
                   ),
                   obscureText: true,
                   enableSuggestions: false,
@@ -122,7 +118,7 @@ class _LoginPageState extends AuthState<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 48, 0, 6),
+                padding: const EdgeInsets.fromLTRB(0, 96, 0, 6),
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _signIn,
                   child: Text(_isLoading ? 'Loading' : 'Sign in'),
@@ -136,20 +132,16 @@ class _LoginPageState extends AuthState<LoginPage> {
                   label: Text(_isLoading ? 'Loading' : "Sign in with Google"),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 24, 0, 6),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text("Don't have an accout?")],
-                ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                child: Text("Don't have an accout?"),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, '/register_student');
+                        context, '/register');
                   },
                   child: const Text("Sign up"),
                 ),

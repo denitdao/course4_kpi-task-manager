@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/core/auth/auth_required_state.dart';
 import 'package:task_manager/widgets/drawer.dart';
-import 'package:task_manager/modules/models/task_item.dart';
+import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/task_preview.dart';
 
 class TodayPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends AuthRequiredState<TodayPage> {
-  List<TaskItem> tasks = [];
+  List<Task> tasks = [];
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _TodayPageState extends AuthRequiredState<TodayPage> {
 
   void populateTasks() {
     tasks = Iterable<int>.generate(16)
-        .map((i) => TaskItem(false, 'Task ' + (i + 1).toString(),
+        .map((i) => Task(false, 'Task ' + (i + 1).toString(),
             'About this task', 'Today', 'Subject title'))
         .toList();
   }
@@ -33,7 +33,6 @@ class _TodayPageState extends AuthRequiredState<TodayPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
         title: Text(widget.title),
       ),
       body: ListView.separated(
@@ -42,7 +41,7 @@ class _TodayPageState extends AuthRequiredState<TodayPage> {
         padding: const EdgeInsets.only(bottom: 80),
         itemBuilder: (context, index) {
           final item = tasks[index];
-          return TaskPreview(taskItem: item);
+          return TaskPreview(task: item);
         },
         separatorBuilder: (context, index) => const Divider(
           height: 1,

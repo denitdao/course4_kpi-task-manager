@@ -1,25 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/modules/models/task_item.dart';
+import 'package:task_manager/models/task.dart';
+import 'package:task_manager/screens/task_view.dart';
 
 class TaskPreview extends StatefulWidget {
-  final TaskItem taskItem;
+  final Task task;
 
-  const TaskPreview({Key? key, required this.taskItem}) : super(key: key);
+  const TaskPreview({Key? key, required this.task}) : super(key: key);
 
   @override
-  State<TaskPreview> createState() => _TaskPreviewState(taskItem);
+  State<TaskPreview> createState() => _TaskPreviewState(task);
 }
 
 class _TaskPreviewState extends State<TaskPreview> {
-  final TaskItem _taskItem;
+  final Task _task;
 
-  _TaskPreviewState(this._taskItem);
+  _TaskPreviewState(this._task);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {Navigator.pushNamed(context, "/task")},
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TaskView(id: _task.title),
+          ),
+        )
+      },
       child: Padding(
         padding: const EdgeInsets.all(4),
         child: Column(
@@ -29,11 +37,10 @@ class _TaskPreviewState extends State<TaskPreview> {
               textBaseline: TextBaseline.ideographic,
               children: [
                 Checkbox(
-                  activeColor: Colors.deepPurpleAccent,
-                  value: _taskItem.isCompleted,
+                  value: _task.isCompleted,
                   onChanged: (bool? value) {
                     setState(() {
-                      _taskItem.isCompleted = value!;
+                      _task.isCompleted = value!;
                     });
                   },
                 ),
@@ -44,16 +51,15 @@ class _TaskPreviewState extends State<TaskPreview> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(4, 12, 4, 4),
                         child: Text(
-                          _taskItem.title,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                          _task.title,
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+                        padding: const EdgeInsets.all(4),
                         child: Text(
-                          _taskItem.description,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          _task.description,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                     ],
@@ -62,18 +68,21 @@ class _TaskPreviewState extends State<TaskPreview> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    _taskItem.date,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    _task.date,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
               ],
             ),
             Container(
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: 4),
               child: ActionChip(
+                // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 tooltip: 'Navigate to the subject page',
-                label: Text(_taskItem.subjectTitle),
+                label: Text(
+                  _task.subjectTitle,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
                 onPressed: () => {Navigator.pushNamed(context, "/subject")},
               ),
             ),

@@ -1,10 +1,10 @@
-class TaskItem {
+class Task {
   bool isCompleted;
   String title;
   String description;
   String date;
   String subjectTitle;
 
-  TaskItem(this.isCompleted, this.title, this.description, this.date,
+  Task(this.isCompleted, this.title, this.description, this.date,
       this.subjectTitle);
 }
