@@ -27,7 +27,7 @@ class _TaskPreviewState extends State<TaskPreview> {
         )
       },
       child: Padding(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
         child: Column(
           children: [
             Row(

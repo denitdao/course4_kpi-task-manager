@@ -5,6 +5,7 @@ class LightColor {
 
   static const Color primary = Colors.deepPurple;
   static const Color accent = Colors.deepPurpleAccent;
+  static const Color warn = Colors.red;
 
   static const Color title = Colors.black;
   static const Color subtitle = Colors.black87;

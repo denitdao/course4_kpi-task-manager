@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:task_manager/theme/light_color.dart';
 
 // Widely used variables
 final supabase = Supabase.instance.client;
@@ -7,7 +8,7 @@ final supabase = Supabase.instance.client;
 extension ShowSnackBar on BuildContext {
   void showSnackBar({
     required String message,
-    Color backgroundColor = Colors.deepPurpleAccent,
+    Color backgroundColor = LightColor.accent,
   }) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       content: Text(message),
@@ -16,6 +17,6 @@ extension ShowSnackBar on BuildContext {
   }
 
   void showErrorSnackBar({required String message}) {
-    showSnackBar(message: message, backgroundColor: Colors.red);
+    showSnackBar(message: message, backgroundColor: LightColor.warn);
   }
 }

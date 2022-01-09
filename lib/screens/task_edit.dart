@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/task.dart';
+import 'package:task_manager/theme/light_color.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
 class TaskEdit extends StatefulWidget {
@@ -44,6 +45,18 @@ class _TaskEditState extends State<TaskEdit> {
               tooltip: 'Go to task statistics',
             ),
           ],
+        ),
+        floatingActionButton: OutlinedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            'Delete',
+            style: TextStyle(color: LightColor.warn),
+          ),
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(width: 1, color: LightColor.warn),
+          ),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(12, 24, 12, 12),
