@@ -7,7 +7,6 @@ import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
 import 'screens/some.dart';
-import 'screens/task_edit.dart';
 import 'screens/today.dart';
 
 Future<void> main() async {

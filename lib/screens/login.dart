@@ -77,77 +77,74 @@ class _LoginPageState extends AuthState<LoginPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(0, 84, 0, 0),
-            child: Column(mainAxisSize: MainAxisSize.max, children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 48, 0, 48),
-                child: Text(
-                  "Log into this app using existing accout",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 6, 24, 6),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email Address',
-                    hintText: 'Enter your email...',
-                    border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.all(10),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(0, 84, 0, 0),
+          child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 48, 0, 48),
+                  child: Text(
+                    "Log into this app using existing accout",
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 6, 24, 48),
-                child: TextFormField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter your password...',
-                    border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.all(10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 6, 24, 6),
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email Address',
+                      hintText: 'Enter your email...',
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
                   ),
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 96, 0, 6),
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _signIn,
-                  child: Text(_isLoading ? 'Loading' : 'Sign in'),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 6, 24, 48),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'Enter your password...',
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 6, 0, 24),
-                child: OutlinedButton.icon(
-                  onPressed: _isLoading ? null : _googleSignIn,
-                  icon: const Icon(MdiIcons.google),
-                  label: Text(_isLoading ? 'Loading' : "Sign in with Google"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 96, 0, 6),
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _signIn,
+                    child: Text(_isLoading ? 'Loading' : 'Sign in'),
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
-                child: Text("Don't have an accout?"),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, '/register');
-                  },
-                  child: const Text("Sign up"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 6, 0, 24),
+                  child: OutlinedButton.icon(
+                    onPressed: _isLoading ? null : _googleSignIn,
+                    icon: const Icon(MdiIcons.google),
+                    label: Text(_isLoading ? 'Loading' : "Sign in with Google"),
+                  ),
                 ),
-              ),
-            ]),
-          ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                  child: Text("Don't have an accout?"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/register');
+                    },
+                    child: const Text("Sign up"),
+                  ),
+                ),
+              ]),
         ),
       ),
     );

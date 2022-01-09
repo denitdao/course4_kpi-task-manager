@@ -28,7 +28,7 @@ class AppTheme {
 
   static TextStyle h1Style = const TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     color: LightColor.black,
   );
   static TextStyle h2Style = const TextStyle(
@@ -54,11 +54,12 @@ class AppTheme {
   static TextStyle subtitleStyle = const TextStyle(color: LightColor.black,);
 
   static TextStyle bodyStyle = const TextStyle(
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
     color: LightColor.black,
   );
   static TextStyle body2Style = const TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     color: LightColor.lightGrey,
   );
   

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/auth/auth_state.dart';
-import 'package:task_manager/core/auth/secrets.dart';
 import 'package:task_manager/screens/register_student.dart';
 import 'package:task_manager/screens/register_teacher.dart';
 

@@ -9,13 +9,11 @@ class TaskPreview extends StatefulWidget {
   const TaskPreview({Key? key, required this.task}) : super(key: key);
 
   @override
-  State<TaskPreview> createState() => _TaskPreviewState(task);
+  State<TaskPreview> createState() => _TaskPreviewState();
 }
 
 class _TaskPreviewState extends State<TaskPreview> {
-  final Task _task;
-
-  _TaskPreviewState(this._task);
+  late final Task _task = widget.task;
 
   @override
   Widget build(BuildContext context) {

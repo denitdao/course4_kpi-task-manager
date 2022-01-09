@@ -54,7 +54,7 @@ class _RegisterTeacherPageState extends AuthState<RegisterTeacherPage> {
         'id': user!.id,
         'first_name': firstName,
         'last_name': lastName,
-        'role': 'STUDENT',
+        'role': 'TEACHER',
       };
       // apply dropdownValue
 

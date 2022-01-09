@@ -1,7 +1,3 @@
-// Copyright 2020, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -66,13 +62,18 @@ class _FormWidgetsDemoState extends State<FormWidgetsDemo> {
                           },
                           maxLines: 5,
                         ),
-                        _FormDatePicker(
-                          date: date,
-                          onChanged: (value) {
-                            setState(() {
-                              date = value;
-                            });
-                          },
+                        Container(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: _FormDatePicker(
+                              date: date,
+                              onChanged: (value) {
+                                setState(() {
+                                  date = value;
+                                });
+                              },
+                            ),
+                          ),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -107,8 +108,8 @@ class _FormWidgetsDemoState extends State<FormWidgetsDemo> {
                           ],
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Checkbox(
                               value: brushedTeeth,
@@ -118,8 +119,10 @@ class _FormWidgetsDemoState extends State<FormWidgetsDemo> {
                                 });
                               },
                             ),
-                            Text('Brushed Teeth',
-                                style: Theme.of(context).textTheme.subtitle1),
+                            Expanded(
+                              child: Text('Brushed ffsdf dsfdsfsd fdssdfsdf sdf sdf sdf dsf sdf dsf',
+                                  style: Theme.of(context).textTheme.subtitle1),
+                            ),
                           ],
                         ),
                         Row(
