@@ -1,22 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
-class TaskEdit extends StatefulWidget {
-  TaskEdit({Key? key, required this.id}) : super(key: key);
+class TaskCreate extends StatefulWidget {
+  TaskCreate({Key? key, required this.subjectId}) : super(key: key);
 
-  String id;
+  String subjectId;
 
   @override
-  State<TaskEdit> createState() => _TaskEditState();
+  State<TaskCreate> createState() => _TaskCreateState();
 }
 
-class _TaskEditState extends State<TaskEdit> {
+class _TaskCreateState extends State<TaskCreate> {
   bool _isLoading = false;
   Task task = Task(
     false,
-    "Title of the task",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "",
+    "",
     "Today",
     "Subject",
   );
@@ -32,18 +33,9 @@ class _TaskEditState extends State<TaskEdit> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.save),
-            tooltip: 'Save changes and navigate back',
+            tooltip: 'Save new task and navigate back',
           ),
-          title: Text('Edit task'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/some");
-              },
-              icon: const Icon(Icons.bar_chart_rounded),
-              tooltip: 'Go to task statistics',
-            ),
-          ],
+          title: Text('New Task'),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(12, 24, 12, 12),

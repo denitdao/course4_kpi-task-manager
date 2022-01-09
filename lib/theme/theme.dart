@@ -41,7 +41,7 @@ class AppTheme {
   );
   static TextStyle h4Style = const TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     color: LightColor.black,
   );
   static TextStyle h5Style = const TextStyle(

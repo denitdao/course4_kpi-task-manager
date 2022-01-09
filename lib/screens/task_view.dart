@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:task_manager/widgets/date_picker.dart';
 
 class TaskView extends StatefulWidget {
   TaskView({Key? key, required this.id}) : super(key: key);
@@ -9,10 +8,10 @@ class TaskView extends StatefulWidget {
   String id;
 
   @override
-  State<TaskView> createState() => _TaskEditState();
+  State<TaskView> createState() => _TaskViewState();
 }
 
-class _TaskEditState extends State<TaskView> {
+class _TaskViewState extends State<TaskView> {
   bool _isLoading = false;
   Task task = Task(
     false,
@@ -28,7 +27,6 @@ class _TaskEditState extends State<TaskView> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
           title: Text('Task - ' + task.subjectTitle),
         ),
         body: SingleChildScrollView(
@@ -83,7 +81,7 @@ class _TaskEditState extends State<TaskView> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ),
-              _FormDatePicker(
+              FormDatePicker(
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
@@ -109,47 +107,6 @@ class _TaskEditState extends State<TaskView> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _FormDatePicker extends StatefulWidget {
-  final DateTime date;
-  final ValueChanged<DateTime> onChanged;
-
-  const _FormDatePicker({
-    required this.date,
-    required this.onChanged,
-  });
-
-  @override
-  _FormDatePickerState createState() => _FormDatePickerState();
-}
-
-class _FormDatePickerState extends State<_FormDatePicker> {
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      child: Text(
-        intl.DateFormat.yMd().format(widget.date),
-        // style: Theme.of(context).textTheme.subtitle1,
-      ),
-      onPressed: () async {
-        var now = DateTime.now();
-        var newDate = await showDatePicker(
-          context: context,
-          initialDate: widget.date,
-          firstDate: DateTime(now.year, now.month - 1, now.day),
-          lastDate: DateTime(now.year + 1, now.month, now.day),
-        );
-
-        // Don't change the date if the date picker returns null.
-        if (newDate == null) {
-          return;
-        }
-
-        widget.onChanged(newDate);
-      },
     );
   }
 }

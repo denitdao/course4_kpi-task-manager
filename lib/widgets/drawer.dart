@@ -72,6 +72,30 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
+                    title: const Text('Create task'),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/task_create");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Edit task'),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/task_edit");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Create subject'),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/subject_create");
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Edit subject'),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/subject_edit");
+                    },
+                  ),
+                  ListTile(
                     title: const Text('Log out'),
                     onTap: () => _signOut(context),
                   ),

@@ -12,5 +12,7 @@ class LightColor {
   static const Color icon = Colors.deepPurpleAccent;
 
   static const Color black = Colors.black;
+  static const Color shadedPrimary = Color(0xFF311B92);
   static const Color lightGrey = Colors.black54;
+  static const Color lightBackground = Colors.black12;
 }
