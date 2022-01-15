@@ -3,6 +3,8 @@ import 'package:task_manager/screens/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/screens/register.dart';
 import 'package:task_manager/screens/splash.dart';
+import 'package:task_manager/screens/subject_create.dart';
+import 'package:task_manager/screens/subject_edit.dart';
 import 'package:task_manager/screens/task_create.dart';
 import 'package:task_manager/screens/task_edit.dart';
 import 'package:task_manager/theme/theme.dart';
@@ -36,17 +38,17 @@ class MyApp extends StatelessWidget {
         '/register': (_) => const RegisterPage(),
         '/today': (BuildContext context) => const TodayPage(title: 'Today'),
         '/this_week': (BuildContext context) =>
-        const TodayPage(title: 'This week'),
+            const TodayPage(title: 'This week'),
         '/all': (BuildContext context) => const TodayPage(title: 'All tasks'),
         '/some': (BuildContext context) => const FormWidgetsDemo(),
-        '/task_create': (_) =>
-            TaskCreate(
+        '/task_create': (_) => TaskCreate(
               subjectId: 'subject_id',
             ),
-        '/task_edit': (_) =>
-            TaskEdit(
+        '/task_edit': (_) => TaskEdit(
               id: 'task_id',
             ),
+        '/subject_create': (_) => SubjectCreate(),
+        '/subject_edit': (_) => SubjectEdit(id: 'subject_id'),
       },
     );
   }

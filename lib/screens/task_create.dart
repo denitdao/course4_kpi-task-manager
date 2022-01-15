@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/core/auth/auth_required_state.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
@@ -12,7 +13,7 @@ class TaskCreate extends StatefulWidget {
   State<TaskCreate> createState() => _TaskCreateState();
 }
 
-class _TaskCreateState extends State<TaskCreate> {
+class _TaskCreateState extends AuthRequiredState<TaskCreate> {
   bool _isLoading = false;
   Task task = Task(
     false,
@@ -47,6 +48,7 @@ class _TaskCreateState extends State<TaskCreate> {
                 style: Theme.of(context).textTheme.headline1,
                 decoration: const InputDecoration.collapsed(
                   hintText: 'Task title',
+                  border: UnderlineInputBorder(),
                 ),
                 maxLines: 3,
                 minLines: 1,

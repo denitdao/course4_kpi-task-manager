@@ -44,6 +44,7 @@ class _RegisterPageState extends AuthState<RegisterPage> {
     _emailController = TextEditingController();
     _firstNameController = TextEditingController();
     _lastNameController = TextEditingController();
+    _getProfile();
 
 // pass dropdown value
     _widgetOptions = <Widget>[
@@ -59,7 +60,6 @@ class _RegisterPageState extends AuthState<RegisterPage> {
         lastNameController: _lastNameController,
       ),
     ];
-    _getProfile();
   }
 
   @override

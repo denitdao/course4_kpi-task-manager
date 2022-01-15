@@ -80,30 +80,6 @@ class _RegisterStudentPageState extends AuthState<RegisterStudentPage> {
     });
   }
 
-  Future _getProfile() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final response = await supabase.from('groups').select('title').execute();
-    final error = response.error;
-    if (error != null && response.status != 406) {
-      context.showErrorSnackBar(message: error.message);
-    }
-    final data = response.data;
-    if (data != null) {
-      setState(() {
-        widget.groups.setGroups(data.map<String>((i) {
-          return i['title'] as String;
-        }).toList());
-      });
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -203,7 +179,7 @@ class _RegisterStudentPageState extends AuthState<RegisterStudentPage> {
       ),
       const Padding(
         padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
-        child: Text("Already have an accout?"),
+        child: Text("Already have an account?"),
       ),
       Padding(
         padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
