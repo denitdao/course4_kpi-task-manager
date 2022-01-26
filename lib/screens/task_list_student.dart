@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/core/auth/auth_required_state.dart';
 import 'package:task_manager/widgets/drawer.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/widgets/task_preview.dart';
+import 'package:task_manager/widgets/task_preview_student.dart';
 
-class TodayPage extends StatefulWidget {
-  const TodayPage({Key? key, required this.title}) : super(key: key);
+class TaskListStudent extends StatefulWidget {
+  const TaskListStudent({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _TodayPageState createState() => _TodayPageState();
+  _TaskListStudentState createState() => _TaskListStudentState();
 }
 
-class _TodayPageState extends AuthRequiredState<TodayPage> {
+class _TaskListStudentState extends AuthRequiredState<TaskListStudent> {
   List<Task> tasks = [];
 
   @override
@@ -41,7 +41,7 @@ class _TodayPageState extends AuthRequiredState<TodayPage> {
         padding: const EdgeInsets.only(bottom: 80),
         itemBuilder: (context, index) {
           final item = tasks[index];
-          return TaskPreview(task: item);
+          return TaskPreviewStudent(task: item);
         },
         separatorBuilder: (context, index) => const Divider(
           height: 1,

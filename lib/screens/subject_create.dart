@@ -41,6 +41,33 @@ class _SubjectCreateState extends AuthRequiredState<SubjectCreate> {
     });
   }
 
+  Future<void> _createSubject() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final user = supabase.auth.currentUser;
+    final newSubject = {
+      'teacher_id': user!.id,
+      'group_id': '3c8d32e4-9a6d-4000-a926-40de2c6c59f9',
+      'title': subject.title,
+      'description': _dropdownValue,
+    };
+
+    final response =
+        await supabase.from('subjects').insert(newSubject).execute();
+    final error = response.error;
+    if (error != null) {
+      context.showErrorSnackBar(message: error.message);
+    } else {
+      Navigator.pop(context);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -54,9 +81,7 @@ class _SubjectCreateState extends AuthRequiredState<SubjectCreate> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: _createSubject,
             icon: const Icon(Icons.save),
             tooltip: 'Save new subject and navigate back',
           ),

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/screens/task_view.dart';
 
-class TaskPreview extends StatefulWidget {
+class TaskPreviewStudent extends StatefulWidget {
   final Task task;
 
-  const TaskPreview({Key? key, required this.task}) : super(key: key);
+  const TaskPreviewStudent({Key? key, required this.task}) : super(key: key);
 
   @override
-  State<TaskPreview> createState() => _TaskPreviewState();
+  State<TaskPreviewStudent> createState() => _TaskPreviewStudentState();
 }
 
-class _TaskPreviewState extends State<TaskPreview> {
+class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
   late final Task _task = widget.task;
 
   @override
@@ -76,10 +76,10 @@ class _TaskPreviewState extends State<TaskPreview> {
               alignment: Alignment.centerRight,
               child: ActionChip(
                 // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                tooltip: 'Navigate to the subject page',
+                tooltip: 'Navigate to the tasks of this subject',
                 label: Text(
                   _task.subjectTitle,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 onPressed: () => {Navigator.pushNamed(context, "/subject")},
               ),

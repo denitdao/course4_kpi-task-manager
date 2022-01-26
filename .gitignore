@@ -20,6 +20,13 @@
 # is commented out by default.
 #.vscode/
 
+# Code generation
+*.g.dart
+*.gr.dart
+*.freezed.dart
+*.i69n.dart
+*.config.dart
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
