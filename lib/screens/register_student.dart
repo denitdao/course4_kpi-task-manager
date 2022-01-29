@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/auth/auth_state.dart';
 import 'package:task_manager/core/auth/secrets.dart';
-import 'package:task_manager/screens/register.dart';
+import 'package:task_manager/pages/register_page/register.dart';
 
 class RegisterStudentPage extends StatefulWidget {
   RegisterStudentPage({

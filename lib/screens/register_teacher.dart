@@ -38,7 +38,6 @@ class _RegisterTeacherPageState extends AuthState<RegisterTeacherPage> {
         _emailController.text, _passwordController.text,
         options: AuthOptions(redirectTo: authRedirectUri));
 
-    // supabase.auth.update(data)
     final error = response.error;
     if (error != null) {
       context.showErrorSnackBar(message: error.message);

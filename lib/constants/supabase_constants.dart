@@ -10,10 +10,14 @@ extension ShowSnackBar on BuildContext {
     required String message,
     Color backgroundColor = LightColor.accent,
   }) {
-    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: backgroundColor,
-    ));
+    ScaffoldMessenger.of(this)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: backgroundColor,
+        ),
+      );
   }
 
   void showErrorSnackBar({required String message}) {

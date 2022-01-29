@@ -18,12 +18,18 @@ dependencies:
   get_it: ^7.2.0
   injectable: ^1.5.3
   supabase_flutter: ^0.2.9
-  freezed_annotation: ^1.1.0
+  freezed_annotation:
   json_annotation: ^4.4.0
   progress_indicators: ^1.0.0
+  flutter_mobx: ^2.0.0
+  mobx: ^2.0.1
+  mobx_codegen: ^2.0.1+2
 
   material_design_icons_flutter: ^5.0.6595
   cupertino_icons: ^1.0.2
+  either_dart: ^0.1.4
+  equatable: ^2.0.3
+  formz: ^0.4.1
 
 dev_dependencies:
   flutter_test:
