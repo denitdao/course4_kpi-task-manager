@@ -86,8 +86,10 @@ class AuthRepository {
           'Please check your email and follow the instructions to verify your email address.');
     }
     final user = supabase.auth.currentUser;
+    // create user profile
+    final userId = user!.id;
     final userProfile = {
-      'id': user!.id,
+      'id': userId,
       'first_name': firstName,
       'last_name': lastName,
       'role': 'STUDENT',
@@ -99,7 +101,16 @@ class AuthRepository {
     final profileUpsertError = profileUpsertResponse.error;
     if (profileUpsertError != null) return Left(profileUpsertError.message);
 
-    // TODO: set student group
+    // connect user and group
+    final userGroup = {
+      'user_id': userId,
+      'group_id': groupId,
+    };
+    final userGroupUpsertResponse =
+        await supabase.from('group_user').upsert(userGroup).execute();
+
+    final userGroupUpsertError = userGroupUpsertResponse.error;
+    if (userGroupUpsertError != null) return Left(userGroupUpsertError.message);
 
     return const Right(true);
   }

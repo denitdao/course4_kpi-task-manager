@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:task_manager/pages/register_page/register.dart';
+import 'package:task_manager/pages/register_page/register_page.dart';
 import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/screens/subject_create.dart';
 import 'package:task_manager/screens/subject_edit.dart';
