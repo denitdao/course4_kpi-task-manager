@@ -5,6 +5,7 @@ import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/pages/register_page/student/register_student_cubit.dart';
+import 'package:task_manager/theme/light_color.dart';
 
 class RegisterStudentPage extends StatelessWidget {
   const RegisterStudentPage({Key? key}) : super(key: key);
@@ -126,14 +127,23 @@ class _GroupDropdownInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterStudentCubit, RegisterStudentState>(
+      buildWhen: (previous, current) =>
+          previous.groupIds != current.groupIds ||
+          previous.groupId != current.groupId,
       builder: (context, state) {
         if (state.groupIds.isEmpty) {
           if (state.dataStatus == ExternalDataStatus.loading) {
             return const Center(child: Text('loading'));
           }
         }
+        print(state.groupId.valid);
         return DropdownButton<String>(
-          hint: const Text('Choose group'),
+          hint: Text(
+            'Choose group',
+            style: state.groupId.valid
+                ? const TextStyle()
+                : const TextStyle(color: LightColor.warn),
+          ),
           items: state.groupIds.map<DropdownMenuItem<String>>(
             (Group group) {
               return DropdownMenuItem<String>(
@@ -142,8 +152,8 @@ class _GroupDropdownInput extends StatelessWidget {
               );
             },
           ).toList(),
-          value: state.groupId,
-          onChanged: context.read<RegisterStudentCubit>().onGroupUpdate,
+          value: state.groupId.value,
+          onChanged: context.read<RegisterStudentCubit>().onGroupChange,
         );
       },
     );

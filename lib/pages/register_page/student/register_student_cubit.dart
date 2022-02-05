@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/forms/email_input.dart';
 import 'package:task_manager/models/forms/name_input.dart';
+import 'package:task_manager/models/forms/non_empty_text_input.dart';
 import 'package:task_manager/models/forms/password_input.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/repositories/auth_repository.dart';
@@ -26,7 +27,7 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
 
   Future<void> signUp() async {
     if (!state.status.isValidated) return;
-    final chosenGroupId = state.groupId;
+    final chosenGroupId = state.groupId.value;
     if (chosenGroupId == null) {
       emit(state.copyWith(
         errorMessage: 'Please choose a group first!',
@@ -69,15 +70,31 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
     );
   }
 
-  void onGroupUpdate(String? groupId) {
-    emit(state.copyWith(groupId: groupId));
+  void onGroupChange(String? value) {
+    final groupId = NonEmptyText.dirty(value);
+    emit(state.copyWith(
+      groupId: groupId,
+      status: Formz.validate([
+        state.firstName,
+        state.lastName,
+        state.email,
+        state.password,
+        groupId,
+      ]),
+    ));
   }
 
   void onFirstNameChange(String value) {
     final firstName = Name.dirty(value);
     emit(state.copyWith(
       firstName: firstName,
-      status: Formz.validate([firstName, state.firstName]),
+      status: Formz.validate([
+        firstName,
+        state.lastName,
+        state.email,
+        state.password,
+        state.groupId,
+      ]),
     ));
   }
 
@@ -85,7 +102,13 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
     final lastName = Name.dirty(value);
     emit(state.copyWith(
       lastName: lastName,
-      status: Formz.validate([lastName, state.lastName]),
+      status: Formz.validate([
+        state.firstName,
+        lastName,
+        state.email,
+        state.password,
+        state.groupId,
+      ]),
     ));
   }
 
@@ -93,7 +116,13 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
     final email = Email.dirty(value);
     emit(state.copyWith(
       email: email,
-      status: Formz.validate([email, state.password]),
+      status: Formz.validate([
+        state.firstName,
+        state.lastName,
+        email,
+        state.password,
+        state.groupId,
+      ]),
     ));
   }
 
@@ -101,7 +130,13 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
     final password = Password.dirty(value);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([state.email, password]),
+      status: Formz.validate([
+        state.firstName,
+        state.lastName,
+        state.email,
+        password,
+        state.groupId,
+      ]),
     ));
   }
 }

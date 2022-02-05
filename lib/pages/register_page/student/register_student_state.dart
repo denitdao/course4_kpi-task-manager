@@ -8,7 +8,7 @@ class RegisterStudentState with _$RegisterStudentState {
   const factory RegisterStudentState.loaded({
     @Default(ExternalDataStatus.loading) ExternalDataStatus dataStatus,
     @Default([]) List<Group> groupIds,
-    String? groupId,
+    @Default(NonEmptyText.pure()) NonEmptyText groupId,
     @Default(Name.pure()) Name firstName,
     @Default(Name.pure()) Name lastName,
     @Default(Email.pure()) Email email,

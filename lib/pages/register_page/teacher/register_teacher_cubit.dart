@@ -24,11 +24,6 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    print(state.firstName.value);
-    print(state.lastName.value);
-    print(state.email.value);
-    print(state.password.value);
-
     final response = await _authRepository.signUpTeacher(
       state.email.value,
       state.password.value,
@@ -37,11 +32,11 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     );
 
     response.either(
-          (left) => emit(state.copyWith(
+      (left) => emit(state.copyWith(
         errorMessage: left,
         status: FormzStatus.submissionFailure,
       )),
-          (right) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+      (right) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
     );
   }
 
@@ -49,7 +44,12 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     final firstName = Name.dirty(value);
     emit(state.copyWith(
       firstName: firstName,
-      status: Formz.validate([firstName, state.firstName]),
+      status: Formz.validate([
+        firstName,
+        state.lastName,
+        state.email,
+        state.password,
+      ]),
     ));
   }
 
@@ -57,7 +57,12 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     final lastName = Name.dirty(value);
     emit(state.copyWith(
       lastName: lastName,
-      status: Formz.validate([lastName, state.lastName]),
+      status: Formz.validate([
+        state.firstName,
+        lastName,
+        state.email,
+        state.password,
+      ]),
     ));
   }
 
@@ -65,7 +70,12 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     final email = Email.dirty(value);
     emit(state.copyWith(
       email: email,
-      status: Formz.validate([email, state.password]),
+      status: Formz.validate([
+        state.firstName,
+        state.lastName,
+        email,
+        state.password,
+      ]),
     ));
   }
 
@@ -73,7 +83,12 @@ class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {
     final password = Password.dirty(value);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([state.email, password]),
+      status: Formz.validate([
+        state.firstName,
+        state.lastName,
+        state.email,
+        password,
+      ]),
     ));
   }
 }

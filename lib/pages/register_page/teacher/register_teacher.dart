@@ -29,7 +29,7 @@ class RegisterTeacherForm extends StatelessWidget {
               message: state.errorMessage ?? 'Authentication Failure');
         } else if (state.status.isSubmissionSuccess) {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/today', (route) => false);
+              context, '/subjects', (route) => false);
         }
       },
       child: Column(
