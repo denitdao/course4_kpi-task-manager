@@ -93,8 +93,8 @@ class SubjectRepository {
   Future<Either<String, List<Subject>>> getAllSubjectsByTeacher(
       String teacherId) async {
     final response = await supabase
-        .from('subjects')
-        .select('id, title, group_id, teacher_id')
+        .from('subjects_extended')
+        .select('*')
         .eq('teacher_id', teacherId)
         .execute();
 

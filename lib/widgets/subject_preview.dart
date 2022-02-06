@@ -1,23 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/subject.dart';
-import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_page.dart';
 import 'package:task_manager/screens/task_list_teacher.dart';
-import 'package:task_manager/screens/task_view.dart';
-import 'package:task_manager/widgets/task_preview_teacher.dart';
 
-class SubjectPreview extends StatefulWidget {
-  final Subject subject;
-
+class SubjectPreview extends StatelessWidget {
   const SubjectPreview({Key? key, required this.subject}) : super(key: key);
 
-  @override
-  State<SubjectPreview> createState() => _SubjectPreviewState();
-}
-
-class _SubjectPreviewState extends State<SubjectPreview> {
-  late final Subject _subject = widget.subject;
+  final Subject subject;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +15,7 @@ class _SubjectPreviewState extends State<SubjectPreview> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SubjectEditPage(id: _subject.title),
+            builder: (context) => SubjectEditPage(id: subject.id),
           ),
         )
       },
@@ -34,7 +23,7 @@ class _SubjectPreviewState extends State<SubjectPreview> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TaskListTeacher(subjectId: _subject.title),
+            builder: (context) => TaskListTeacher(subjectId: subject.id),
           ),
         )
       },
@@ -46,7 +35,7 @@ class _SubjectPreviewState extends State<SubjectPreview> {
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 12, 4, 4),
               child: Text(
-                _subject.title,
+                subject.title,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
@@ -58,14 +47,14 @@ class _SubjectPreviewState extends State<SubjectPreview> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    _subject.tasks?.length.toString() ?? '0' + ' tasks',
+                    '${subject.taskAmount} tasks',
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
                 ActionChip(
                   tooltip: 'See subjects of the group',
                   label: Text(
-                    _subject.groupId,
+                    subject.group?.title ?? 'unknown',
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   onPressed: () => {Navigator.pushNamed(context, "/subjects")},

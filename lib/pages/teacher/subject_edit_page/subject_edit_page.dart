@@ -9,9 +9,9 @@ import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_cubit.
 import 'package:task_manager/theme/light_color.dart';
 
 class SubjectEditPage extends StatefulWidget {
-  SubjectEditPage({Key? key, required this.id}) : super(key: key);
+  const SubjectEditPage({Key? key, required this.id}) : super(key: key);
 
-  String id;
+  final String id;
 
   @override
   _SubjectEditPageState createState() => _SubjectEditPageState();

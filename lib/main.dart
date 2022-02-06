@@ -6,7 +6,7 @@ import 'package:task_manager/pages/register_page/register_page.dart';
 import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_page.dart';
-import 'package:task_manager/screens/subject_list.dart';
+import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
 import 'package:task_manager/screens/task_create.dart';
 import 'package:task_manager/screens/task_edit.dart';
 import 'package:task_manager/screens/task_list_teacher.dart';
@@ -56,10 +56,10 @@ class MyApp extends StatelessWidget {
         '/task_edit': (_) => TaskEdit(
               id: 'task_id',
             ),
-        '/subject_create': (_) => SubjectCreatePage(),
-        '/subject_edit': (_) => SubjectEditPage(id: '0e1d4dc4-c8c2-4820-b73c-ccec0b2ef1b1'),
-        '/subjects': (_) => SubjectList(groupId: 'TV-81'),
-        '/subject_tasks': (_) => TaskListTeacher(subjectId: 'Math'),
+        '/subject_create': (_) => const SubjectCreatePage(),
+        '/subject_edit': (_) => const SubjectEditPage(id: '0e1d4dc4-c8c2-4820-b73c-ccec0b2ef1b1'),
+        '/subjects': (_) => const SubjectListPage(),
+        '/subject_tasks': (_) => const TaskListTeacher(subjectId: 'Math'),
       },
     );
   }

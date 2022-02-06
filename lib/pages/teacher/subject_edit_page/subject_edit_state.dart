@@ -4,7 +4,6 @@ enum ExternalDataStatus { loading, success, fail }
 
 @freezed
 class SubjectEditState with _$SubjectEditState {
-
   const factory SubjectEditState.loaded({
     @Default(ExternalDataStatus.loading) ExternalDataStatus dataStatus,
     @Default([]) List<Group> groupIds,
