@@ -4,7 +4,7 @@ import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/pages/register_page/register_page.dart';
 import 'package:task_manager/screens/splash.dart';
-import 'package:task_manager/screens/subject_create.dart';
+import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/screens/subject_edit.dart';
 import 'package:task_manager/screens/subject_list.dart';
 import 'package:task_manager/screens/task_create.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         '/task_edit': (_) => TaskEdit(
               id: 'task_id',
             ),
-        '/subject_create': (_) => SubjectCreate(),
+        '/subject_create': (_) => SubjectCreatePage(),
         '/subject_edit': (_) => SubjectEdit(id: 'subject_id'),
         '/subjects': (_) => SubjectList(groupId: 'TV-81'),
         '/subject_tasks': (_) => TaskListTeacher(subjectId: 'Math'),

@@ -136,7 +136,6 @@ class _GroupDropdownInput extends StatelessWidget {
             return const Center(child: Text('loading'));
           }
         }
-        print(state.groupId.valid);
         return DropdownButton<String>(
           hint: Text(
             'Choose group',
