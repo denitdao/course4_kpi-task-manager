@@ -75,7 +75,7 @@ class _TaskEditState extends AuthRequiredState<TaskEdit> {
                 minLines: 1,
                 onChanged: (value) {
                   setState(() {
-                    task.title = value;
+                    task.copyWith(title: value);
                   });
                 },
               ),
@@ -90,7 +90,7 @@ class _TaskEditState extends AuthRequiredState<TaskEdit> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.date = 'new';
+                    task.copyWith(date: 'new');
                   });
                 },
               ),
@@ -115,7 +115,7 @@ class _TaskEditState extends AuthRequiredState<TaskEdit> {
                   maxLines: 50,
                   onChanged: (value) {
                     setState(() {
-                      task.description = value;
+                      task.copyWith(description: value);
                     });
                   },
                 ),

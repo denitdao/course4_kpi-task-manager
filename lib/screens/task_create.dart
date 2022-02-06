@@ -14,7 +14,6 @@ class TaskCreate extends StatefulWidget {
 }
 
 class _TaskCreateState extends AuthRequiredState<TaskCreate> {
-  bool _isLoading = false;
   Task task = Task(
     false,
     "",
@@ -54,7 +53,7 @@ class _TaskCreateState extends AuthRequiredState<TaskCreate> {
                 minLines: 1,
                 onChanged: (value) {
                   setState(() {
-                    task.title = value;
+                    task.copyWith(title: value);
                   });
                 },
               ),
@@ -69,7 +68,7 @@ class _TaskCreateState extends AuthRequiredState<TaskCreate> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.date = 'new';
+                    task.copyWith(date: 'new');
                   });
                 },
               ),
@@ -94,7 +93,7 @@ class _TaskCreateState extends AuthRequiredState<TaskCreate> {
                   maxLines: 50,
                   onChanged: (value) {
                     setState(() {
-                      task.description = value;
+                      task.copyWith(description: value);
                     });
                   },
                 ),

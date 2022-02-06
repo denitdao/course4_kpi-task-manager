@@ -38,7 +38,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                   value: _task.isCompleted,
                   onChanged: (bool? value) {
                     setState(() {
-                      _task.isCompleted = value!;
+                      _task.copyWith(isCompleted: value!);
                     });
                   },
                 ),

@@ -53,7 +53,7 @@ class _TaskViewState extends AuthRequiredState<TaskView> {
                     value: task.isCompleted,
                     onChanged: (bool? value) {
                       setState(() {
-                        task.isCompleted = value!;
+                        task.copyWith(isCompleted: value!);
                       });
                     },
                   ),
@@ -67,7 +67,7 @@ class _TaskViewState extends AuthRequiredState<TaskView> {
                             hintText: 'subtask title'),
                         onChanged: (value) {
                           setState(() {
-                            task.title = value;
+                            task.copyWith(title: value);
                           });
                         },
                       ),
@@ -86,7 +86,7 @@ class _TaskViewState extends AuthRequiredState<TaskView> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.date = 'new';
+                    task.copyWith(date: 'new');
                   });
                 },
               ),

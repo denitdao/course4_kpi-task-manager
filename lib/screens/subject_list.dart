@@ -25,10 +25,11 @@ class _SubjectListState extends AuthRequiredState<SubjectList> {
   }
 
   void populateTasks() {
-    Task task = Task(false, 'Task', 'About this task', 'Today', 'Subject title');
+    Task task =
+        Task(false, 'Task', 'About this task', 'Today', 'Subject title');
     subjects = Iterable<int>.generate(12)
-        .map((i) => Subject('Subject ' + (i + 1).toString(),
-            widget.groupId, List.filled(i, task, growable: true)))
+        .map((i) => Subject('id', 'Subject ' + (i + 1).toString(), widget.groupId,
+            tasks: List.filled(i, task, growable: true)))
         .toList();
   }
 
