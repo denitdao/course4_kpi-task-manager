@@ -96,7 +96,7 @@ class _SaveSubjectButton extends StatelessWidget {
           onPressed: () => state.dataStatus == ExternalDataStatus.success
               ? _saveSubject(context)
               : null,
-          icon: state.status.isValidated &&
+          icon: state.status.isValid &&
                   !state.status.isSubmissionInProgress &&
                   state.dataStatus == ExternalDataStatus.success
               ? const Icon(Icons.save)

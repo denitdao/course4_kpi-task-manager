@@ -75,7 +75,7 @@ class _SaveSubjectButton extends StatelessWidget {
       builder: (context, state) {
         return IconButton(
           onPressed: () => _saveSubject(context),
-          icon: state.status.isValidated && !state.status.isSubmissionInProgress
+          icon: state.status.isValid && !state.status.isSubmissionInProgress
               ? const Icon(Icons.save)
               : const Opacity(opacity: 0.5, child: Icon(Icons.save)),
           tooltip: 'Save new subject and navigate back',
