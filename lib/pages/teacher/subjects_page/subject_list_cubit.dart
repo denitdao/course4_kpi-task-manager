@@ -17,13 +17,23 @@ part 'subject_list_state.dart';
 class SubjectListCubit extends Cubit<SubjectListState> {
   late GroupRepository _groupRepository;
   late SubjectRepository _subjectRepository;
+  final String? _groupId;
 
-  SubjectListCubit() : super(const SubjectListState()) {
+  SubjectListCubit(this._groupId) : super(const SubjectListState()) {
     _groupRepository = getIt<GroupRepository>();
     _subjectRepository = getIt<SubjectRepository>();
   }
 
-  void loadDataForGroup(String groupId) async {
+  Future<void> loadData() async {
+    final groupId = _groupId;
+    if (groupId == null) {
+      _loadDataForAllGroups();
+    } else {
+      _loadDataForGroup(groupId);
+    }
+  }
+
+  Future<void> _loadDataForGroup(String groupId) async {
     final subjectResponse = await _subjectRepository.getAllSubjectsByGroup(groupId);
     if (subjectResponse.isRight) {
       emit(state.copyWith(
@@ -37,20 +47,10 @@ class SubjectListCubit extends Cubit<SubjectListState> {
       return;
     }
 
-    final groupResponse = await _groupRepository.getAllGroups();
-    if (groupResponse.isRight) {
-      emit(state.copyWith(
-        groups: groupResponse.right,
-      ));
-    } else {
-      emit(state.copyWith(
-        errorMessage: groupResponse.left,
-        dataStatus: ExternalDataStatus.fail,
-      ));
-    }
+    _loadAllGroups();
   }
 
-  void loadDataForAllGroups() async {
+  Future<void> _loadDataForAllGroups() async {
     final teacherId = supabase.auth.currentUser!.id;
     final subjectResponse = await _subjectRepository.getAllSubjectsByTeacher(teacherId);
     if (subjectResponse.isRight) {
@@ -65,7 +65,11 @@ class SubjectListCubit extends Cubit<SubjectListState> {
       return;
     }
 
-    final groupResponse = await _groupRepository.getAllGroups();
+    _loadAllGroups();
+  }
+
+  Future<void> _loadAllGroups() async {
+    final groupResponse = await _groupRepository.getAllGroups(); // todo: replace to get groups with teachers subject
     if (groupResponse.isRight) {
       emit(state.copyWith(
         groups: groupResponse.right,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_page.dart';
+import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
 import 'package:task_manager/screens/task_list_teacher.dart';
 
 class SubjectPreview extends StatelessWidget {
@@ -57,7 +58,16 @@ class SubjectPreview extends StatelessWidget {
                     subject.group?.title ?? 'unknown',
                     style: Theme.of(context).textTheme.headline4,
                   ),
-                  onPressed: () => {Navigator.pushNamed(context, "/subjects")},
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SubjectListPage(
+                          groupId: subject.groupId,
+                        ),
+                      ),
+                    ),
+                  },
                 ),
               ],
             ),

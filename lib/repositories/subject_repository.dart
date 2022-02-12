@@ -24,12 +24,14 @@ class SubjectRepository {
 
   Future<Either<String, bool>> updateSubject(Subject subject) async {
     final newSubject = {
-      'id': subject.id,
       'title': subject.title,
     };
 
-    final response =
-        await supabase.from('subjects').update(newSubject).execute();
+    final response = await supabase
+        .from('subjects')
+        .update(newSubject)
+        .eq('id', subject.id)
+        .execute();
     final error = response.error;
     if (error != null) return Left(error.message);
 
@@ -71,10 +73,11 @@ class SubjectRepository {
   Future<Either<String, List<Subject>>> getAllSubjectsByGroup(
       String groupId) async {
     final response = await supabase
-        .from('subjects')
-        .select('id, title, group_id, teacher_id')
+        .from('subjects_extended')
+        .select('*')
         .eq('group_id', groupId)
         .eq('is_inactive', false)
+        .order('created_at')
         .execute();
 
     final error = response.error;
@@ -96,6 +99,8 @@ class SubjectRepository {
         .from('subjects_extended')
         .select('*')
         .eq('teacher_id', teacherId)
+        .eq('is_inactive', false)
+        .order('created_at')
         .execute();
 
     final error = response.error;

@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text('All'),
+                    title: const Text('All tasks'),
                     onTap: () {
                       Navigator.pushReplacementNamed(context, "/all");
                     },
@@ -48,7 +48,7 @@ class AppDrawer extends StatelessWidget {
                     thickness: 1,
                   ),
                   ListTile(
-                    title: const Text('Subject List'),
+                    title: const Text('All subjects'),
                     onTap: () {
                       Navigator.pushReplacementNamed(context, "/subjects");
                     },
@@ -75,18 +75,6 @@ class AppDrawer extends StatelessWidget {
                     title: const Text('Edit task'),
                     onTap: () {
                       Navigator.pushNamed(context, "/task_edit");
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Create subject'),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/subject_create");
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Edit subject'),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/subject_edit");
                     },
                   ),
                   ListTile(

@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
               id: 'task_id',
             ),
         '/subject_create': (_) => const SubjectCreatePage(),
-        '/subject_edit': (_) => const SubjectEditPage(id: '0e1d4dc4-c8c2-4820-b73c-ccec0b2ef1b1'),
         '/subjects': (_) => const SubjectListPage(),
         '/subject_tasks': (_) => const TaskListTeacher(subjectId: 'Math'),
       },
