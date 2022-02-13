@@ -114,4 +114,13 @@ class AuthRepository {
 
     return const Right(true);
   }
+
+  Future<Either<String, bool>> signOut() async {
+    final response = await supabase.auth.signOut();
+
+    final error = response.error;
+    if (error != null) return Left(error.message);
+
+    return const Right(true);
+  }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/pages/error_page.dart';
 import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/pages/register_page/register_page.dart';
+import 'package:task_manager/pages/settings/settings_page.dart';
 import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
-import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
 import 'package:task_manager/screens/task_create.dart';
 import 'package:task_manager/screens/task_edit.dart';
@@ -13,9 +14,7 @@ import 'package:task_manager/screens/task_list_teacher.dart';
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
-import 'screens/some.dart';
 import 'screens/task_list_student.dart';
-
 
 // flutter pub run build_runner build --delete-conflicting-outputs
 
@@ -45,11 +44,14 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/login': (_) => const LoginPage(),
         '/register': (_) => const RegisterPage(),
-        '/today': (BuildContext context) => const TaskListStudent(title: 'Today'),
+        '/settings': (_) => const SettingsPage(),
+        '/today': (BuildContext context) =>
+            const TaskListStudent(title: 'Today'),
         '/this_week': (BuildContext context) =>
             const TaskListStudent(title: 'This week'),
-        '/all': (BuildContext context) => const TaskListStudent(title: 'All tasks'),
-        '/some': (BuildContext context) => const FormWidgetsDemo(),
+        '/all': (BuildContext context) =>
+            const TaskListStudent(title: 'All tasks'),
+        '/error': (BuildContext context) => const ErrorPage(),
         '/task_create': (_) => TaskCreate(
               subjectId: 'subject_id',
             ),

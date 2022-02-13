@@ -6,14 +6,6 @@ class AppDrawer extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future<void> _signOut(BuildContext context) async {
-    final response = await supabase.auth.signOut();
-    final error = response.error;
-    if (error != null) {
-      context.showErrorSnackBar(message: error.message);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,12 +52,6 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text('Some'),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/some");
-                    },
-                  ),
-                  ListTile(
                     title: const Text('Create task'),
                     onTap: () {
                       Navigator.pushNamed(context, "/task_create");
@@ -76,10 +62,6 @@ class AppDrawer extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, "/task_edit");
                     },
-                  ),
-                  ListTile(
-                    title: const Text('Log out'),
-                    onTap: () => _signOut(context),
                   ),
                 ],
               ),

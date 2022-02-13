@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/forms/non_empty_text_input.dart';
+import 'package:task_manager/models/forms/text_input.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/repositories/group_repository.dart';
@@ -66,7 +68,7 @@ class SubjectEditCubit extends Cubit<SubjectEditState> {
     }
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    final updatedSubject = state.subject!.copyWith(title: subjectTitle!);
+    final updatedSubject = state.subject!.copyWith(title: subjectTitle);
     final response = _subjectRepository.updateSubject(updatedSubject);
 
     response.either(

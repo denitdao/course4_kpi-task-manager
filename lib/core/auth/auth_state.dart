@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:supabase/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
+import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/repositories/user_repository.dart';
 
 class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
   @override
@@ -26,7 +27,23 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
         await supabase.rpc('delete_user').execute();
         supabase.auth.signOut();
       } else {
-        Navigator.pushNamedAndRemoveUntil(context, '/today', (route) => false);
+        final response = await getIt<UserRepository>().loadCurrentUser();
+        response.either(
+          (left) => {
+            print('ERROR loading user data'),
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login', (route) => false)
+          },
+          (right) {
+            if (right.role == 'TEACHER') {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/subjects', (route) => false);
+            } else {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/today', (route) => false);
+            }
+          },
+        );
       }
     }
   }

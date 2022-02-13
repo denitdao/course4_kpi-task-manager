@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
+import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/widgets/drawer.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/task_preview_student.dart';
@@ -13,24 +13,29 @@ class TaskListStudent extends StatefulWidget {
   _TaskListStudentState createState() => _TaskListStudentState();
 }
 
-class _TaskListStudentState extends AuthRequiredState<TaskListStudent> {
+class _TaskListStudentState extends StudentAuthRequiredState<TaskListStudent> {
   List<Task> tasks = [];
 
   @override
   void initState() {
-    populateTasks();
     super.initState();
+    populateTasks();
   }
 
   void populateTasks() {
     tasks = Iterable<int>.generate(16)
-        .map((i) => Task(false, 'Task ' + (i + 1).toString(),
-            'About this task', 'Today', 'Subject title'))
+        .map((i) => Task(false, 'Task ' + (i + 1).toString(), 'About this task',
+            'Today', 'Subject title'))
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!verifiedAccess) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

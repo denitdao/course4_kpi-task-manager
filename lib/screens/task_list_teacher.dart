@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
-import 'package:task_manager/widgets/drawer.dart';
+import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/task_preview_teacher.dart';
 
@@ -13,13 +12,13 @@ class TaskListTeacher extends StatefulWidget {
   _TaskListTeacherState createState() => _TaskListTeacherState();
 }
 
-class _TaskListTeacherState extends AuthRequiredState<TaskListTeacher> {
+class _TaskListTeacherState extends TeacherAuthRequiredState<TaskListTeacher> {
   List<Task> tasks = [];
 
   @override
   void initState() {
-    populateTasks();
     super.initState();
+    populateTasks();
   }
 
   void populateTasks() {

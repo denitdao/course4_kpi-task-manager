@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends AuthState<LoginPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

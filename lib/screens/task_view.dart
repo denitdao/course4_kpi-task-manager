@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
+import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
@@ -12,7 +12,7 @@ class TaskView extends StatefulWidget {
   State<TaskView> createState() => _TaskViewState();
 }
 
-class _TaskViewState extends AuthRequiredState<TaskView> {
+class _TaskViewState extends StudentAuthRequiredState<TaskView> {
   bool _isLoading = false;
   Task task = Task(
     false,

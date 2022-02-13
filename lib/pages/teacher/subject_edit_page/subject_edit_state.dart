@@ -1,7 +1,5 @@
 part of 'subject_edit_cubit.dart';
 
-enum ExternalDataStatus { loading, success, fail }
-
 @freezed
 class SubjectEditState with _$SubjectEditState {
   const factory SubjectEditState.loaded({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
-import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
+import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_cubit.dart';
 import 'package:task_manager/widgets/drawer.dart';
@@ -16,7 +16,7 @@ class SubjectListPage extends StatefulWidget {
   _SubjectListState createState() => _SubjectListState();
 }
 
-class _SubjectListState extends AuthRequiredState<SubjectListPage> {
+class _SubjectListState extends TeacherAuthRequiredState<SubjectListPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

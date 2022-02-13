@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
+import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_cubit.dart';
 import 'package:task_manager/theme/light_color.dart';
@@ -17,7 +18,7 @@ class SubjectEditPage extends StatefulWidget {
   _SubjectEditPageState createState() => _SubjectEditPageState();
 }
 
-class _SubjectEditPageState extends AuthRequiredState<SubjectEditPage> {
+class _SubjectEditPageState extends TeacherAuthRequiredState<SubjectEditPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

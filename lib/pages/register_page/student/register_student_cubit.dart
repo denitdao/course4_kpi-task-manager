@@ -3,6 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/forms/email_input.dart';
 import 'package:task_manager/models/forms/name_input.dart';
 import 'package:task_manager/models/forms/non_empty_text_input.dart';
@@ -71,7 +72,7 @@ class RegisterStudentCubit extends Cubit<RegisterStudentState> {
   }
 
   void onGroupChange(String? value) {
-    final groupId = NonEmptyText.dirty(value);
+    final groupId = NonNullText.dirty(value);
     emit(state.copyWith(
       groupId: groupId,
       status: Formz.validate([

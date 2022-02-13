@@ -1,9 +1,12 @@
+import 'package:either_dart/src/future_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
+import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/pages/login_page/login_cubit.dart';
+import 'package:task_manager/repositories/user_repository.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -16,8 +19,22 @@ class LoginForm extends StatelessWidget {
           context.showErrorSnackBar(
               message: state.errorMessage ?? 'Authentication Failure');
         } else if (state.status.isSubmissionSuccess) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/today', (route) => false);
+          getIt<UserRepository>().loadCurrentUser().either(
+            (left) => {
+              print('ERROR loading user data'),
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/login', (route) => false)
+            },
+            (right) {
+              if (right.role == 'TEACHER') {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/subjects', (route) => false);
+              } else {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/today', (route) => false);
+              }
+            },
+          );
         }
       },
       child: GestureDetector(

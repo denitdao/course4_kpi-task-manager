@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/forms/non_empty_text_input.dart';
+import 'package:task_manager/models/forms/text_input.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/repositories/group_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
@@ -59,7 +61,7 @@ class SubjectCreateCubit extends Cubit<SubjectCreateState> {
 
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    final response = _subjectRepository.createSubject(subjectTitle!, groupId);
+    final response = _subjectRepository.createSubject(subjectTitle, groupId);
 
     response.either(
       (left) => emit(state.copyWith(
@@ -71,7 +73,7 @@ class SubjectCreateCubit extends Cubit<SubjectCreateState> {
   }
 
   void onGroupChange(String? value) {
-    final groupId = NonEmptyText.dirty(value);
+    final groupId = NonNullText.dirty(value);
     emit(state.copyWith(
       groupId: groupId,
       status: Formz.validate([

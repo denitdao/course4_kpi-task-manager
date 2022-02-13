@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/core/auth/auth_required_state.dart';
+import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
@@ -13,7 +13,7 @@ class TaskCreate extends StatefulWidget {
   State<TaskCreate> createState() => _TaskCreateState();
 }
 
-class _TaskCreateState extends AuthRequiredState<TaskCreate> {
+class _TaskCreateState extends TeacherAuthRequiredState<TaskCreate> {
   Task task = Task(
     false,
     "",
