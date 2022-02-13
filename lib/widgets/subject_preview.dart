@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/pages/teacher/subject_edit_page/subject_edit_page.dart';
+import 'package:task_manager/pages/teacher/subject_tasks_page/subject_tasks_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
-import 'package:task_manager/screens/task_list_teacher.dart';
 
 class SubjectPreview extends StatelessWidget {
   const SubjectPreview({Key? key, required this.subject}) : super(key: key);
@@ -24,7 +24,7 @@ class SubjectPreview extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TaskListTeacher(subjectId: subject.id),
+            builder: (context) => SubjectTasksPage(subjectId: subject.id),
           ),
         )
       },

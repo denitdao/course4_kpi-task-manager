@@ -10,7 +10,6 @@ import 'package:task_manager/pages/teacher/subject_create_page/subject_create_pa
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
 import 'package:task_manager/screens/task_create.dart';
 import 'package:task_manager/screens/task_edit.dart';
-import 'package:task_manager/screens/task_list_teacher.dart';
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
@@ -60,7 +59,6 @@ class MyApp extends StatelessWidget {
             ),
         '/subject_create': (_) => const SubjectCreatePage(),
         '/subjects': (_) => const SubjectListPage(),
-        '/subject_tasks': (_) => const TaskListTeacher(subjectId: 'Math'),
       },
     );
   }

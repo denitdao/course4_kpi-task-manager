@@ -15,11 +15,14 @@ class TaskCreate extends StatefulWidget {
 
 class _TaskCreateState extends TeacherAuthRequiredState<TaskCreate> {
   Task task = Task(
-    false,
     "",
     "",
-    "Today",
-    "Subject",
+    "",
+    "",
+    DateTime.now(),
+    DateTime.now(),
+    DateTime.now(),
+    false
   );
 
   @override
@@ -68,7 +71,7 @@ class _TaskCreateState extends TeacherAuthRequiredState<TaskCreate> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.copyWith(date: 'new');
+                    task.copyWith(dueDate: DateTime.now());
                   });
                 },
               ),

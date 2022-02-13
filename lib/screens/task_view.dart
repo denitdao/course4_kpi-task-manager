@@ -15,11 +15,14 @@ class TaskView extends StatefulWidget {
 class _TaskViewState extends StudentAuthRequiredState<TaskView> {
   bool _isLoading = false;
   Task task = Task(
-    false,
-    "Title of the task",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Today",
-    "Subject",
+      "",
+      "Title of the task",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "",
+      DateTime.now(),
+      DateTime.now(),
+      DateTime.now(),
+      false
   );
 
   @override
@@ -50,10 +53,10 @@ class _TaskViewState extends StudentAuthRequiredState<TaskView> {
                 children: [
                   Checkbox(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    value: task.isCompleted,
+                    value: task.isDeleted,
                     onChanged: (bool? value) {
                       setState(() {
-                        task.copyWith(isCompleted: value!);
+                        task.copyWith(isDeleted: value!);
                       });
                     },
                   ),
@@ -86,7 +89,7 @@ class _TaskViewState extends StudentAuthRequiredState<TaskView> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.copyWith(date: 'new');
+                    task.copyWith(dueDate: DateTime.now());
                   });
                 },
               ),

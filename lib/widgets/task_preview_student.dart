@@ -35,10 +35,10 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
               textBaseline: TextBaseline.ideographic,
               children: [
                 Checkbox(
-                  value: _task.isCompleted,
+                  value: _task.isDeleted,
                   onChanged: (bool? value) {
                     setState(() {
-                      _task.copyWith(isCompleted: value!);
+                      _task.copyWith(isDeleted: value!);
                     });
                   },
                 ),
@@ -66,7 +66,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    _task.date,
+                    _task.dueDate.toString(),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),

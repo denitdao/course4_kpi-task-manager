@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/task.dart';
+import 'package:task_manager/models/task.dart';
 import 'package:task_manager/theme/light_color.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
@@ -16,11 +17,14 @@ class TaskEdit extends StatefulWidget {
 class _TaskEditState extends TeacherAuthRequiredState<TaskEdit> {
   bool _isLoading = false;
   Task task = Task(
-    false,
-    "Title of the task",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Today",
-    "Subject",
+      "",
+      "Title of the task",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "",
+      DateTime.now(),
+      DateTime.now(),
+      DateTime.now(),
+      false
   );
 
   @override
@@ -90,7 +94,7 @@ class _TaskEditState extends TeacherAuthRequiredState<TaskEdit> {
                 date: DateTime.now(),
                 onChanged: (value) {
                   setState(() {
-                    task.copyWith(date: 'new');
+                    task.copyWith(dueDate: DateTime.now());
                   });
                 },
               ),
