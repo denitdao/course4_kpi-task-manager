@@ -21,6 +21,7 @@ class TeacherAuthRequiredState<T extends StatefulWidget>
   }
 
   Future<void> checkAccess() async {
+    // check AuthState's user type
     final response = await getIt<UserRepository>().loadCurrentUser();
     response.either(
       (left) => context.showErrorSnackBar(message: left),

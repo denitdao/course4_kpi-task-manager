@@ -8,8 +8,6 @@ import 'package:task_manager/pages/settings/settings_page.dart';
 import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
-import 'package:task_manager/screens/task_create.dart';
-import 'package:task_manager/screens/task_edit.dart';
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
@@ -27,6 +25,13 @@ Future<void> main() async {
     anonKey: supabaseAnonKey,
   );
 
+  // rewrite with the use of the approach when we have core AuthState and AuthCubit
+  // AuthCubit is provided on the root for all of the pages (in MyApp)
+  // AuthState contains data about User - one of three
+  // unknown (during token refresh), authorized, unauthorized
+  // AuthCubit on it's initialization will try to renew token using authRepository's features
+  // authRepository provides a stream with user
+
   runApp(const MyApp());
 }
 
@@ -35,6 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // emit foreach
     return MaterialApp(
       title: 'KPI Task Manager',
       theme: AppTheme.lightTheme,
@@ -51,12 +57,6 @@ class MyApp extends StatelessWidget {
         '/all': (BuildContext context) =>
             const TaskListStudent(title: 'All tasks'),
         '/error': (BuildContext context) => const ErrorPage(),
-        '/task_create': (_) => TaskCreate(
-              subjectId: 'subject_id',
-            ),
-        '/task_edit': (_) => TaskEdit(
-              id: 'task_id',
-            ),
         '/subject_create': (_) => const SubjectCreatePage(),
         '/subjects': (_) => const SubjectListPage(),
       },

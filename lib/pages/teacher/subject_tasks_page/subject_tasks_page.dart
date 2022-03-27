@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
-import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/teacher/subject_tasks_page/subject_tasks_cubit.dart';
-import 'package:task_manager/screens/task_create.dart';
+import 'package:task_manager/pages/teacher/task_create_page/task_create_page.dart';
 import 'package:task_manager/widgets/task_preview_teacher.dart';
 
 class SubjectTasksPage extends StatefulWidget {
@@ -35,24 +34,27 @@ class _SubjectTasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubjectTasksCubit, SubjectTasksState>(
-        builder: (context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('${state.subject?.title} Tasks'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/error");
-              },
-              icon: const Icon(Icons.bar_chart_rounded),
-              tooltip: 'Go to subject statistics',
-            ),
-          ],
-        ),
-        body: const _TaskList(),
-        floatingActionButton: const _TaskAddButton(),
-      );
-    });
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: state.subject == null
+                ? const Text('Loading')
+                : Text('${state.subject!.title} Tasks'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/error");
+                },
+                icon: const Icon(Icons.bar_chart_rounded),
+                tooltip: 'Go to subject statistics',
+              ),
+            ],
+          ),
+          body: const _TaskList(),
+          floatingActionButton: const _TaskAddButton(),
+        );
+      },
+    );
   }
 }
 
@@ -95,16 +97,21 @@ class _TaskAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TaskCreate(subjectId: "widget"),
-          ),
+    return BlocBuilder<SubjectTasksCubit, SubjectTasksState>(
+      builder: (context, state) {
+        return FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    TaskCreatePage(subjectId: state.subject!.id),
+              ),
+            );
+          },
+          child: const Icon(Icons.add),
         );
       },
-      child: const Icon(Icons.add),
     );
   }
 }

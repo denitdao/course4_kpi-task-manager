@@ -23,13 +23,14 @@ class SubjectRepository {
   }
 
   Future<Either<String, bool>> updateSubject(Subject subject) async {
-    final newSubject = {
+    final updatedSubject = {
       'title': subject.title,
+      'updated_at': DateTime.now().toString(),
     };
 
     final response = await supabase
         .from('subjects')
-        .update(newSubject)
+        .update(updatedSubject)
         .eq('id', subject.id)
         .execute();
     final error = response.error;
@@ -39,13 +40,13 @@ class SubjectRepository {
   }
 
   Future<Either<String, bool>> deleteSubject(String id) async {
-    final newSubject = {
-      'id': id,
+    final toDelete = {
       'is_inactive': true,
+      'updated_at': DateTime.now().toString(),
     };
 
     final response =
-        await supabase.from('subjects').update(newSubject).execute();
+        await supabase.from('subjects').update(toDelete).eq('id', id).execute();
     final error = response.error;
     if (error != null) return Left(error.message);
 

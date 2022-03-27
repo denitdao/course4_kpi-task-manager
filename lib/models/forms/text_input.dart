@@ -8,7 +8,7 @@ class NonEmptyText extends FormzInput<String, NonEmptyTextValidationError> {
   const NonEmptyText.dirty([String value = '']) : super.dirty(value);
 
   static final RegExp _nameRegExp = RegExp(
-    r'^.+$',
+    r'^(.|\s)*\S(.|\s)*$',
   );
 
   @override

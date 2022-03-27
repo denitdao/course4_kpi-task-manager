@@ -53,16 +53,7 @@ class _SubjectEditForm extends StatelessWidget {
               leading: _SaveSubjectButton(),
               title: const Text('Edit Subject'),
             ),
-            floatingActionButton: OutlinedButton(
-              onPressed: context.read<SubjectEditCubit>().deleteSubject,
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: LightColor.warn),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(width: 1, color: LightColor.warn),
-              ),
-            ),
+            floatingActionButton: _DeleteSubjectButton(),
             body: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(12, 24, 12, 12),
               child: Column(
@@ -105,6 +96,22 @@ class _SaveSubjectButton extends StatelessWidget {
           tooltip: 'Update subject and navigate back',
         );
       },
+    );
+  }
+}
+
+class _DeleteSubjectButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: context.read<SubjectEditCubit>().deleteSubject,
+      child: const Text(
+        'Delete',
+        style: TextStyle(color: LightColor.warn),
+      ),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(width: 1, color: LightColor.warn),
+      ),
     );
   }
 }

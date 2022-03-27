@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/screens/task_edit.dart';
+import 'package:task_manager/pages/teacher/task_edit_page/task_edit_page.dart';
 
 class TaskPreviewTeacher extends StatelessWidget {
   const TaskPreviewTeacher({Key? key, required this.task}) : super(key: key);
@@ -16,7 +16,7 @@ class TaskPreviewTeacher extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TaskEdit(id: task.title),
+            builder: (context) => TaskEditPage(id: task.id),
           ),
         )
       },

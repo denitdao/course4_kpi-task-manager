@@ -45,18 +45,6 @@ class AppDrawer extends StatelessWidget {
                       Navigator.pushReplacementNamed(context, "/subjects");
                     },
                   ),
-                  ListTile(
-                    title: const Text('Create task'),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/task_create");
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Edit task'),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/task_edit");
-                    },
-                  ),
                 ],
               ),
             ),

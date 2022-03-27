@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/screens/task_view.dart';
 
@@ -58,6 +59,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                         child: Text(
                           _task.description,
                           style: Theme.of(context).textTheme.bodyText2,
+                          maxLines: 2,
                         ),
                       ),
                     ],
@@ -66,7 +68,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    _task.dueDate.toString(),
+                    getVerboseDateTimeRepresentation(_task.dueDate),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -89,4 +91,45 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
       ),
     );
   }
+
+  String getVerboseDateTimeRepresentation(DateTime dateTime) {
+    DateTime now = DateTime.now();
+    DateTime justNow = now.subtract(Duration(minutes: 1));
+    DateTime localDateTime = dateTime.toLocal();
+
+    String roughTimeString = DateFormat('jm').format(dateTime);
+
+    if (localDateTime.day == now.day &&
+        localDateTime.month == now.month &&
+        localDateTime.year == now.year) {
+      return roughTimeString;
+    }
+
+    DateTime tomorrow = now.subtract(Duration(days: -1));
+
+    if (localDateTime.day == tomorrow.day &&
+        localDateTime.month == now.month &&
+        localDateTime.year == now.year) {
+      return 'Tomorrow';
+    }
+
+    DateTime yesterday = now.subtract(Duration(days: 1));
+
+    if (localDateTime.day == yesterday.day &&
+        localDateTime.month == now.month &&
+        localDateTime.year == now.year) {
+      return 'Yesterday';
+    }
+
+    if (-4 < now.difference(localDateTime).inDays && now.difference(localDateTime).inDays < 4) {
+      String weekday = DateFormat('EEEE').format(localDateTime);
+
+      return '$weekday';
+      // return '$weekday, $roughTimeString';
+    }
+
+    return '${DateFormat('yMd').format(dateTime)}';
+    // return '${DateFormat('yMd').format(dateTime)}, $roughTimeString';
+  }
+
 }
