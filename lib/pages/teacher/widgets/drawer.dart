@@ -14,21 +14,26 @@ class TeacherDrawer extends StatelessWidget {
       buildWhen: (previous, current) => previous.groups != current.groups,
       builder: (context, state) {
         List<Widget> groupTiles = [];
+        String? selectedGroup = state.groupId;
 
         for (var group in state.groups) {
-          groupTiles.add(ListTile(
-            title: Text(group.title),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SubjectListPage(
-                    groupId: group.id,
+          groupTiles.add(
+            ListTile(
+              title: Text(group.title),
+              selected:
+                  (selectedGroup == null) ? false : group.id == selectedGroup,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SubjectListPage(
+                      groupId: group.id,
+                    ),
                   ),
-                ),
-              );
-            },
-          ));
+                );
+              },
+            ),
+          );
         }
 
         return SafeArea(
@@ -41,6 +46,7 @@ class TeacherDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: const Text('All subjects'),
+                        selected: selectedGroup == null,
                         onTap: () {
                           Navigator.push(
                             context,

@@ -116,4 +116,27 @@ class SubjectRepository {
     }
     return const Right([]);
   }
+
+  Future<Either<String, List<Subject>>> getAllSubjectsByStudent(
+      String studentId) async {
+    final response = await supabase
+        .from('groups')
+        .select('subjects!inner(*), group_user!inner(user_id)')
+        .eq('group_user.user_id', studentId)
+        // .eq('subjects.is_inactive', false)
+        // .order('subjects.created_at')
+        .execute();
+
+    final error = response.error;
+    if (error != null && response.status != 406) return Left(error.message);
+
+    final data = response.data;
+
+    if (data != null) {
+      return Right(data.first['subjects'].map<Subject>((i) {
+        return Subject.fromJson(i);
+      }).toList());
+    }
+    return const Right([]);
+  }
 }

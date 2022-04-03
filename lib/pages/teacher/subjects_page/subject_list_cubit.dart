@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
@@ -18,15 +17,13 @@ part 'subject_list_state.dart';
 class SubjectListCubit extends Cubit<SubjectListState> {
   late GroupRepository _groupRepository;
   late SubjectRepository _subjectRepository;
-  final String? _groupId;
 
-  SubjectListCubit(this._groupId) : super(const SubjectListState()) {
+  SubjectListCubit() : super(const SubjectListState()) {
     _groupRepository = getIt<GroupRepository>();
     _subjectRepository = getIt<SubjectRepository>();
   }
 
-  Future<void> loadData() async {
-    final groupId = _groupId;
+  Future<void> loadData(String? groupId) async {
     if (groupId == null) {
       _loadDataForAllGroups();
     } else {
@@ -39,11 +36,13 @@ class SubjectListCubit extends Cubit<SubjectListState> {
     if (subjectResponse.isRight) {
       emit(state.copyWith(
         subjects: subjectResponse.right,
+        groupId: groupId,
       ));
     } else {
       emit(state.copyWith(
         errorMessage: subjectResponse.left,
         dataStatus: ExternalDataStatus.fail,
+        groupId: groupId,
       ));
       return;
     }

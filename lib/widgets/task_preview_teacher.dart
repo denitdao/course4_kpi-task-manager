@@ -103,7 +103,8 @@ class TaskPreviewTeacher extends StatelessWidget {
       return 'Yesterday';
     }
 
-    if (-4 < now.difference(localDateTime).inDays && now.difference(localDateTime).inDays < 4) {
+    if (-4 < now.difference(localDateTime).inDays &&
+        now.difference(localDateTime).inDays < 4) {
       String weekday = DateFormat('EEEE').format(localDateTime);
 
       return '$weekday';

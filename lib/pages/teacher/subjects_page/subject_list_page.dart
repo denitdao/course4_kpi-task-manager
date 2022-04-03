@@ -21,7 +21,7 @@ class _SubjectListState extends TeacherAuthRequiredState<SubjectListPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) {
-        return SubjectListCubit(widget.groupId)..loadData();
+        return SubjectListCubit()..loadData(widget.groupId);
       },
       child: Scaffold(
         appBar: AppBar(
@@ -48,7 +48,8 @@ class _SubjectList extends StatelessWidget {
           );
         }
         return RefreshIndicator(
-          onRefresh: context.read<SubjectListCubit>().loadData,
+          onRefresh: () =>
+              context.read<SubjectListCubit>().loadData(state.groupId),
           child: ListView.separated(
             addAutomaticKeepAlives: false,
             itemCount: state.subjects.length,

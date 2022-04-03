@@ -18,6 +18,7 @@ class Task with _$Task {
     @JsonKey(name: 'subject_title') @Default('') String subjectTitle,
     @JsonKey(name: 'completed_by') @Default(0) int completedBy,
     @JsonKey(name: 'students_overall') @Default(0) int studentsOverall,
+    @JsonKey(name: 'is_done') @Default(false) bool isDone,
   }) = _Task;
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

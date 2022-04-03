@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/student/task_view_page/task_view.dart';
+import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
 
-class TaskPreviewStudent extends StatefulWidget {
-  final Task task;
-
+class TaskPreviewStudent extends StatelessWidget {
   const TaskPreviewStudent({Key? key, required this.task}) : super(key: key);
 
-  @override
-  State<TaskPreviewStudent> createState() => _TaskPreviewStudentState();
-}
-
-class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
-  late final Task _task = widget.task;
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +17,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TaskView(id: _task.title),
+            builder: (context) => TaskView(id: task.title),
           ),
         )
       },
@@ -36,12 +30,8 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
               textBaseline: TextBaseline.ideographic,
               children: [
                 Checkbox(
-                  value: _task.isDeleted,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _task.copyWith(isDeleted: value!);
-                    });
-                  },
+                  value: task.isDone,
+                  onChanged: null,
                 ),
                 Expanded(
                   child: Column(
@@ -50,14 +40,14 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(4, 12, 4, 4),
                         child: Text(
-                          _task.title,
+                          task.title,
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4),
                         child: Text(
-                          _task.description,
+                          task.description,
                           style: Theme.of(context).textTheme.bodyText2,
                           maxLines: 2,
                         ),
@@ -68,7 +58,7 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    getVerboseDateTimeRepresentation(_task.dueDate),
+                    getVerboseDateTimeRepresentation(task.dueDate),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -80,10 +70,19 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
                 // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 tooltip: 'Navigate to the tasks of this subject',
                 label: Text(
-                  _task.subjectTitle,
+                  task.subjectTitle,
                   style: Theme.of(context).textTheme.headline4,
                 ),
-                onPressed: () => {Navigator.pushNamed(context, "/subject")},
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskListPage(
+                        subjectId: task.subjectId,
+                      ),
+                    ),
+                  )
+                },
               ),
             ),
           ],
@@ -121,7 +120,8 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
       return 'Yesterday';
     }
 
-    if (-4 < now.difference(localDateTime).inDays && now.difference(localDateTime).inDays < 4) {
+    if (-4 < now.difference(localDateTime).inDays &&
+        now.difference(localDateTime).inDays < 4) {
       String weekday = DateFormat('EEEE').format(localDateTime);
 
       return '$weekday';
@@ -131,5 +131,4 @@ class _TaskPreviewStudentState extends State<TaskPreviewStudent> {
     return '${DateFormat('yMd').format(dateTime)}';
     // return '${DateFormat('yMd').format(dateTime)}, $roughTimeString';
   }
-
 }

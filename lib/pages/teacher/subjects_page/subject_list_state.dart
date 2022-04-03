@@ -6,6 +6,7 @@ class SubjectListState with _$SubjectListState {
     @Default(ExternalDataStatus.loading) ExternalDataStatus dataStatus,
     @Default([]) List<Group> groups,
     @Default([]) List<Subject> subjects,
+    String? groupId,
     String? errorMessage,
   }) = _SubjectListState;
 }

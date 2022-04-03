@@ -1,7 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:injectable/injectable.dart';
 import 'package:task_manager/constants/supabase_constants.dart';
-import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/models/task.dart';
 
 @singleton
@@ -77,7 +76,7 @@ class TaskRepository {
     return const Left('No task found');
   }
 
-  Future<Either<String, List<Task>>> getAllTaskBySubject(
+  Future<Either<String, List<Task>>> getAllTasksBySubject(
       String subjectId) async {
     final response = await supabase
         .from('tasks_extended')
@@ -85,6 +84,27 @@ class TaskRepository {
         .eq('subject_id', subjectId)
         .eq('deleted', false)
         .order('created_at')
+        .execute();
+
+    final error = response.error;
+    if (error != null && response.status != 406) return Left(error.message);
+
+    final data = response.data;
+
+    if (data != null) {
+      return Right(data.map<Task>((i) {
+        return Task.fromJson(i);
+      }).toList());
+    }
+    return const Right([]);
+  }
+
+  Future<Either<String, List<Task>>> getAllTasksByStudent(
+      String studentId) async {
+    final response = await supabase
+        .rpc('get_all_tasks_by_student', params: {'student_id' : studentId})
+        .eq('deleted', false)
+        // .order('created_at')
         .execute();
 
     final error = response.error;

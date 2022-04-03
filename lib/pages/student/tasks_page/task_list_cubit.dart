@@ -12,26 +12,34 @@ import 'package:task_manager/repositories/group_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
 import 'package:task_manager/repositories/task_repository.dart';
 
-part 'subject_tasks_cubit.freezed.dart';
+part 'task_list_cubit.freezed.dart';
 
-part 'subject_tasks_state.dart';
+part 'task_list_state.dart';
 
 @injectable
-class SubjectTasksCubit extends Cubit<SubjectTasksState> {
+class TaskListCubit extends Cubit<TaskListState> {
   late TaskRepository _taskRepository;
   late SubjectRepository _subjectRepository;
-  final String _subjectId;
 
-  SubjectTasksCubit(this._subjectId) : super(const SubjectTasksState()) {
+  TaskListCubit() : super(const TaskListState()) {
     _taskRepository = getIt<TaskRepository>();
     _subjectRepository = getIt<SubjectRepository>();
   }
 
-  Future<void> loadData() async {
-    final subjectResponse = await _subjectRepository.getSubjectById(_subjectId);
+  Future<void> loadData(int? range, String? subjectId) async {
+    if (subjectId == null) {
+      _loadAllData();
+    } else {
+      _loadDataForSubject(subjectId);
+    }
+  }
+
+  Future<void> _loadDataForSubject(String groupId) async {
+    final subjectResponse =
+        await _subjectRepository.getAllSubjectsByGroup(groupId);
     if (subjectResponse.isRight) {
       emit(state.copyWith(
-        subject: subjectResponse.right,
+        subjects: subjectResponse.right,
       ));
     } else {
       emit(state.copyWith(
@@ -41,8 +49,32 @@ class SubjectTasksCubit extends Cubit<SubjectTasksState> {
       return;
     }
 
-    final taskResponse = await _taskRepository.getAllTasksBySubject(_subjectId);
+    _loadAllTasks();
+  }
+
+  Future<void> _loadAllData() async {
+    final studentId = supabase.auth.currentUser!.id;
+    final subjectResponse =
+        await _subjectRepository.getAllSubjectsByStudent(studentId);
     if (subjectResponse.isRight) {
+      emit(state.copyWith(
+        subjects: subjectResponse.right,
+      ));
+    } else {
+      emit(state.copyWith(
+        errorMessage: subjectResponse.left,
+        dataStatus: ExternalDataStatus.fail,
+      ));
+      return;
+    }
+
+    _loadAllTasks();
+  }
+
+  Future<void> _loadAllTasks() async {
+    final studentId = supabase.auth.currentUser!.id;
+    final taskResponse = await _taskRepository.getAllTasksByStudent(studentId); // todo
+    if (taskResponse.isRight) {
       emit(state.copyWith(
         tasks: taskResponse.right,
         dataStatus: ExternalDataStatus.success,

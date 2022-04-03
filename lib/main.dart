@@ -5,13 +5,13 @@ import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:task_manager/pages/register_page/register_page.dart';
 import 'package:task_manager/pages/settings/settings_page.dart';
+import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
 import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
-import 'pages/student/tasks_page/task_list_student.dart';
 
 // flutter pub run build_runner build --delete-conflicting-outputs
 
@@ -53,6 +53,9 @@ class MyApp extends StatelessWidget {
         '/error': (BuildContext context) => const ErrorPage(),
         '/subject_create': (_) => const SubjectCreatePage(),
         '/subjects': (_) => const SubjectListPage(),
+        '/all': (_) => const TaskListPage(pageTitle: 'All Tasks'),
+        '/today': (_) => const TaskListPage(pageTitle: 'Today', range: 1),
+        '/week': (_) => const TaskListPage(pageTitle: 'This Week', range: 7),
       },
     );
   }
