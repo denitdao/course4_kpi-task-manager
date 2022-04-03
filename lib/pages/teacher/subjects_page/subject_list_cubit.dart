@@ -70,7 +70,8 @@ class SubjectListCubit extends Cubit<SubjectListState> {
   }
 
   Future<void> _loadAllGroups() async {
-    final groupResponse = await _groupRepository.getAllGroups(); // todo: replace to get groups with teachers subject
+    final teacherId = supabase.auth.currentUser!.id;
+    final groupResponse = await _groupRepository.getGroupsByTeacher(teacherId);
     if (groupResponse.isRight) {
       emit(state.copyWith(
         groups: groupResponse.right,

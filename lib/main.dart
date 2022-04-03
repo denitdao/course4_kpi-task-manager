@@ -11,7 +11,7 @@ import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart'
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
-import 'screens/task_list_student.dart';
+import 'pages/student/tasks_page/task_list_student.dart';
 
 // flutter pub run build_runner build --delete-conflicting-outputs
 
@@ -50,12 +50,6 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginPage(),
         '/register': (_) => const RegisterPage(),
         '/settings': (_) => const SettingsPage(),
-        '/today': (BuildContext context) =>
-            const TaskListStudent(title: 'Today'),
-        '/this_week': (BuildContext context) =>
-            const TaskListStudent(title: 'This week'),
-        '/all': (BuildContext context) =>
-            const TaskListStudent(title: 'All tasks'),
         '/error': (BuildContext context) => const ErrorPage(),
         '/subject_create': (_) => const SubjectCreatePage(),
         '/subjects': (_) => const SubjectListPage(),

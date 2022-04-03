@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/screens/task_view.dart';
+import 'package:task_manager/pages/student/task_view_page/task_view.dart';
 
 class TaskPreviewStudent extends StatefulWidget {
   final Task task;

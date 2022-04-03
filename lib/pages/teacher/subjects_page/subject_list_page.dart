@@ -4,7 +4,7 @@ import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_cubit.dart';
-import 'package:task_manager/widgets/drawer.dart';
+import 'package:task_manager/pages/teacher/widgets/drawer.dart';
 import 'package:task_manager/widgets/subject_preview.dart';
 
 class SubjectListPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _SubjectListState extends TeacherAuthRequiredState<SubjectListPage> {
           title: const Text('Subjects'),
         ),
         body: const _SubjectList(),
-        drawer: const AppDrawer(), // todo pass set of groups with actions
+        drawer: const TeacherDrawer(),
         floatingActionButton: const _SubjectAddButton(),
       ),
     );

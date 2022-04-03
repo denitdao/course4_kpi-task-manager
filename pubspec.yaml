@@ -17,7 +17,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   get_it: ^7.2.0
   injectable: ^1.5.3
-  supabase_flutter: ^0.2.12
+  supabase_flutter:
+    git: https://github.com/denitdao/supabase-flutter.git
   freezed_annotation:
   json_annotation: ^4.4.0
   progress_indicators: ^1.0.0
