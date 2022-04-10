@@ -44,6 +44,23 @@ class TaskRepository {
     return const Right(true);
   }
 
+  Future<Either<String, bool>> updateTaskStatus(
+      String taskId, String studentId, bool status) async {
+    final taskStatus = {
+      'user_id': studentId,
+      'task_id': taskId,
+      'is_completed': status,
+      'updated_at': DateTime.now().toString(),
+    };
+
+    final response =
+        await supabase.from('user_task').upsert(taskStatus).execute();
+    final error = response.error;
+    if (error != null) return Left(error.message);
+
+    return const Right(true);
+  }
+
   Future<Either<String, bool>> deleteTask(String id) async {
     final toDelete = {
       'deleted': true,
@@ -102,7 +119,7 @@ class TaskRepository {
   Future<Either<String, List<Task>>> getAllTasksByStudent(
       String studentId) async {
     final response = await supabase
-        .rpc('get_all_tasks_by_student', params: {'student_id' : studentId})
+        .rpc('get_all_tasks_by_student', params: {'student_id': studentId})
         .eq('deleted', false)
         .order('due_date', ascending: true)
         .execute();
@@ -123,7 +140,7 @@ class TaskRepository {
   Future<Either<String, List<Task>>> getAllTasksByStudentInRange(
       String studentId, int range) async {
     final response = await supabase
-        .rpc('get_all_tasks_by_student', params: {'student_id' : studentId})
+        .rpc('get_all_tasks_by_student', params: {'student_id': studentId})
         .eq('deleted', false)
         .lte('due_date', DateTime.now().add(Duration(days: range)))
         .order('due_date', ascending: true)

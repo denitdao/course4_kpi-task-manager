@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
@@ -48,6 +50,9 @@ class _TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskListCubit, TaskListState>(
+      buildWhen: (previous, current) =>
+          previous.tasks != current.tasks ||
+          previous.dataStatus != current.dataStatus,
       builder: (context, state) {
         if (state.dataStatus == ExternalDataStatus.loading) {
           return const Center(

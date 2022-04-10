@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/student/task_view_page/task_view.dart';
+import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
 
 class TaskPreviewStudent extends StatelessWidget {
@@ -31,7 +33,9 @@ class TaskPreviewStudent extends StatelessWidget {
               children: [
                 Checkbox(
                   value: task.isDone,
-                  onChanged: null,
+                  onChanged: (bool? status) {
+                    context.read<TaskListCubit>().changeTaskStatus(task.id, status ?? !task.isDone);
+                  },
                 ),
                 Expanded(
                   child: Column(

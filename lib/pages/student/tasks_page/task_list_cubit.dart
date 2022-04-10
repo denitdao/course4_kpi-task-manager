@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:either_dart/src/either.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -82,16 +83,39 @@ class TaskListCubit extends Cubit<TaskListState> {
     final studentId = supabase.auth.currentUser!.id;
     final subjectResponse =
         await _subjectRepository.getAllSubjectsByStudent(studentId);
-    if (subjectResponse.isRight) {
-      emit(state.copyWith(
-        subjects: subjectResponse.right,
-        dataStatus: ExternalDataStatus.success,
-      ));
-    } else {
-      emit(state.copyWith(
+
+    subjectResponse.either(
+      (left) => emit(state.copyWith(
         errorMessage: subjectResponse.left,
         dataStatus: ExternalDataStatus.fail,
-      ));
-    }
+      )),
+      (right) => emit(state.copyWith(
+        subjects: subjectResponse.right,
+        dataStatus: ExternalDataStatus.success,
+      )),
+    );
+  }
+
+  Future<void> changeTaskStatus(String taskId, bool status) async {
+    final studentId = supabase.auth.currentUser!.id;
+
+    _emitTasks(taskId, status);
+
+    final taskResponse =
+        await _taskRepository.updateTaskStatus(taskId, studentId, status);
+    taskResponse.either(
+      (left) {
+        emit(state.copyWith(errorMessage: left));
+        _emitTasks(taskId, !status);
+      },
+      (right) => null,
+    );
+  }
+
+  void _emitTasks(String taskId, bool status) {
+    var newTasks = state.tasks
+        .map((e) => e.id == taskId ? e.copyWith(isDone: status) : e)
+        .toList();
+    emit(state.copyWith(tasks: newTasks));
   }
 }
