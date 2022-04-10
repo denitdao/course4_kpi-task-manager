@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
@@ -23,12 +21,6 @@ class TaskListPage extends StatefulWidget {
 class _TaskListPageState extends StudentAuthRequiredState<TaskListPage> {
   @override
   Widget build(BuildContext context) {
-    // if (!verifiedAccess) {
-    //   return const Scaffold(
-    //     body: Center(child: CircularProgressIndicator()),
-    //   );
-    // }
-
     return BlocProvider(
       create: (_) {
         return TaskListCubit()..loadData(widget.range, widget.subjectId);

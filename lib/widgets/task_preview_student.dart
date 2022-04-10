@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/pages/student/task_view_page/task_view.dart';
+import 'package:task_manager/pages/student/task_view_page/task_view_page.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
 
@@ -19,7 +19,7 @@ class TaskPreviewStudent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TaskView(id: task.title),
+            builder: (context) => TaskViewPage(id: task.id),
           ),
         )
       },
@@ -34,7 +34,9 @@ class TaskPreviewStudent extends StatelessWidget {
                 Checkbox(
                   value: task.isDone,
                   onChanged: (bool? status) {
-                    context.read<TaskListCubit>().changeTaskStatus(task.id, status ?? !task.isDone);
+                    context
+                        .read<TaskListCubit>()
+                        .changeTaskStatus(task.id, status ?? !task.isDone);
                   },
                 ),
                 Expanded(
