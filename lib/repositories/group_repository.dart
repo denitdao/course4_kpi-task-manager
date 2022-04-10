@@ -31,7 +31,8 @@ class GroupRepository {
     final response = await supabase
         .from('groups')
         .select('id, title, subjects!inner(teacher_id)')
-        .eq("subjects.teacher_id", teacherId)
+        .eq('subjects.teacher_id', teacherId)
+        .eq('subjects.is_inactive', false)
         .order('title')
         .execute();
 

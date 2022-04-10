@@ -123,8 +123,8 @@ class SubjectRepository {
         .from('groups')
         .select('subjects!inner(*), group_user!inner(user_id)')
         .eq('group_user.user_id', studentId)
-        // .eq('subjects.is_inactive', false)
-        // .order('subjects.created_at')
+        .eq('subjects.is_inactive', false)
+        .order('subjects.title')
         .execute();
 
     final error = response.error;

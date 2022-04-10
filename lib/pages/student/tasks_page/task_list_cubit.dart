@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:either_dart/src/either.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -27,61 +28,68 @@ class TaskListCubit extends Cubit<TaskListState> {
   }
 
   Future<void> loadData(int? range, String? subjectId) async {
+    emit(state.copyWith(
+      subjectId: subjectId,
+      range: range,
+    ));
     if (subjectId == null) {
-      _loadAllData();
+      _loadAllTasks(range);
     } else {
-      _loadDataForSubject(subjectId);
+      _loadTasksForSubject(subjectId);
     }
   }
 
-  Future<void> _loadDataForSubject(String groupId) async {
-    final subjectResponse =
-        await _subjectRepository.getAllSubjectsByGroup(groupId);
-    if (subjectResponse.isRight) {
+  Future<void> _loadAllTasks(int? range) async {
+    final studentId = supabase.auth.currentUser!.id;
+    final Either<String, List<Task>> taskResponse;
+    if (range == null) {
+      taskResponse = await _taskRepository.getAllTasksByStudent(studentId);
+    } else {
+      taskResponse =
+          await _taskRepository.getAllTasksByStudentInRange(studentId, range);
+    }
+    if (taskResponse.isRight) {
       emit(state.copyWith(
-        subjects: subjectResponse.right,
+        tasks: taskResponse.right,
       ));
     } else {
       emit(state.copyWith(
-        errorMessage: subjectResponse.left,
+        errorMessage: taskResponse.left,
         dataStatus: ExternalDataStatus.fail,
       ));
       return;
     }
-
-    _loadAllTasks();
+    _loadSubjects();
   }
 
-  Future<void> _loadAllData() async {
+  Future<void> _loadTasksForSubject(String subjectId) async {
+    final taskResponse = await _taskRepository.getAllTasksBySubject(subjectId);
+    if (taskResponse.isRight) {
+      emit(state.copyWith(
+        tasks: taskResponse.right,
+      ));
+    } else {
+      emit(state.copyWith(
+        errorMessage: taskResponse.left,
+        dataStatus: ExternalDataStatus.fail,
+      ));
+      return;
+    }
+    _loadSubjects();
+  }
+
+  Future<void> _loadSubjects() async {
     final studentId = supabase.auth.currentUser!.id;
     final subjectResponse =
         await _subjectRepository.getAllSubjectsByStudent(studentId);
     if (subjectResponse.isRight) {
       emit(state.copyWith(
         subjects: subjectResponse.right,
-      ));
-    } else {
-      emit(state.copyWith(
-        errorMessage: subjectResponse.left,
-        dataStatus: ExternalDataStatus.fail,
-      ));
-      return;
-    }
-
-    _loadAllTasks();
-  }
-
-  Future<void> _loadAllTasks() async {
-    final studentId = supabase.auth.currentUser!.id;
-    final taskResponse = await _taskRepository.getAllTasksByStudent(studentId); // todo
-    if (taskResponse.isRight) {
-      emit(state.copyWith(
-        tasks: taskResponse.right,
         dataStatus: ExternalDataStatus.success,
       ));
     } else {
       emit(state.copyWith(
-        errorMessage: taskResponse.left,
+        errorMessage: subjectResponse.left,
         dataStatus: ExternalDataStatus.fail,
       ));
     }

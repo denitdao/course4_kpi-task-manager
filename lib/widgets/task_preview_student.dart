@@ -67,7 +67,6 @@ class TaskPreviewStudent extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               child: ActionChip(
-                // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 tooltip: 'Navigate to the tasks of this subject',
                 label: Text(
                   task.subjectTitle,
@@ -78,6 +77,7 @@ class TaskPreviewStudent extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => TaskListPage(
+                        pageTitle: task.subjectTitle + ' Tasks',
                         subjectId: task.subjectId,
                       ),
                     ),

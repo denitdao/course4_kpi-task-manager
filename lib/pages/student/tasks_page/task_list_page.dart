@@ -39,20 +39,6 @@ class _TaskListPageState extends StudentAuthRequiredState<TaskListPage> {
         drawer: const StudentDrawer(),
       ),
     );
-
-    //   body: ListView.separated(
-    //     addAutomaticKeepAlives: false,
-    //     itemCount: tasks.length,
-    //     padding: const EdgeInsets.only(bottom: 80),
-    //     itemBuilder: (context, index) {
-    //       final item = tasks[index];
-    //       return TaskPreviewStudent(task: item);
-    //     },
-    //     separatorBuilder: (context, index) => const Divider(
-    //       height: 1,
-    //       thickness: 1,
-    //     ),
-    //   ),
   }
 }
 

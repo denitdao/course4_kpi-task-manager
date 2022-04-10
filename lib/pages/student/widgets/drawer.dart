@@ -19,11 +19,13 @@ class StudentDrawer extends StatelessWidget {
           subjectTiles.add(
             ListTile(
               title: Text(subject.title),
+              selected: subject.id == state.subjectId,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => TaskListPage(
+                      pageTitle: subject.title + ' Tasks',
                       subjectId: subject.id,
                     ),
                   ),
@@ -42,8 +44,8 @@ class StudentDrawer extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                     children: [
                       ListTile(
-                        selected: true,
                         title: const Text('Today'),
+                        selected: state.range == 1,
                         onTap: () {
                           Navigator.push(
                             context,
@@ -58,6 +60,7 @@ class StudentDrawer extends StatelessWidget {
                       ),
                       ListTile(
                         title: const Text('This week'),
+                        selected: state.range == 7,
                         onTap: () {
                           Navigator.push(
                             context,
@@ -72,6 +75,8 @@ class StudentDrawer extends StatelessWidget {
                       ),
                       ListTile(
                         title: const Text('All tasks'),
+                        selected:
+                            state.range == null && state.subjectId == null,
                         onTap: () {
                           Navigator.push(
                             context,

@@ -83,7 +83,7 @@ class TaskRepository {
         .select('*')
         .eq('subject_id', subjectId)
         .eq('deleted', false)
-        .order('created_at')
+        .order('due_date', ascending: true)
         .execute();
 
     final error = response.error;
@@ -104,7 +104,29 @@ class TaskRepository {
     final response = await supabase
         .rpc('get_all_tasks_by_student', params: {'student_id' : studentId})
         .eq('deleted', false)
-        // .order('created_at')
+        .order('due_date', ascending: true)
+        .execute();
+
+    final error = response.error;
+    if (error != null && response.status != 406) return Left(error.message);
+
+    final data = response.data;
+
+    if (data != null) {
+      return Right(data.map<Task>((i) {
+        return Task.fromJson(i);
+      }).toList());
+    }
+    return const Right([]);
+  }
+
+  Future<Either<String, List<Task>>> getAllTasksByStudentInRange(
+      String studentId, int range) async {
+    final response = await supabase
+        .rpc('get_all_tasks_by_student', params: {'student_id' : studentId})
+        .eq('deleted', false)
+        .lte('due_date', DateTime.now().add(Duration(days: range)))
+        .order('due_date', ascending: true)
         .execute();
 
     final error = response.error;
