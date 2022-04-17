@@ -42,25 +42,44 @@ class _TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskListCubit, TaskListState>(
-      buildWhen: (previous, current) =>
-          previous.tasks != current.tasks ||
-          previous.dataStatus != current.dataStatus,
+      buildWhen: (prev, curr) =>
+          prev.tasks != curr.tasks || prev.dataStatus != curr.dataStatus,
       builder: (context, state) {
         if (state.dataStatus == ExternalDataStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
+        if (state.tasks.isEmpty) {
+          return LayoutBuilder(
+            builder: (context, constraints) => RefreshIndicator(
+              onRefresh: () => context
+                  .read<TaskListCubit>()
+                  .loadData(state.range, state.subjectId),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth,
+                  ),
+                  child: const Center(child: Text("Empty")),
+                ),
+              ),
+            ),
+          );
+        }
+        var tasks = context.read<TaskListCubit>().getOrderedTasks();
         return RefreshIndicator(
           onRefresh: () => context
               .read<TaskListCubit>()
               .loadData(state.range, state.subjectId),
           child: ListView.separated(
             addAutomaticKeepAlives: false,
-            itemCount: state.tasks.length,
+            itemCount: tasks.length,
             padding: const EdgeInsets.only(bottom: 80),
             itemBuilder: (context, index) {
-              final item = state.tasks[index];
+              final item = tasks[index];
               return TaskPreviewStudent(task: item);
             },
             separatorBuilder: (context, index) => const Divider(

@@ -41,10 +41,30 @@ class _SubjectList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubjectListCubit, SubjectListState>(
+      buildWhen: (prev, curr) =>
+          prev.subjects != curr.subjects || prev.dataStatus != curr.dataStatus,
       builder: (context, state) {
         if (state.dataStatus == ExternalDataStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+        if (state.subjects.isEmpty) {
+          return LayoutBuilder(
+            builder: (context, constraints) => RefreshIndicator(
+              onRefresh: () =>
+                  context.read<SubjectListCubit>().loadData(state.groupId),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth,
+                  ),
+                  child: const Center(child: Text("Empty")),
+                ),
+              ),
+            ),
           );
         }
         return RefreshIndicator(

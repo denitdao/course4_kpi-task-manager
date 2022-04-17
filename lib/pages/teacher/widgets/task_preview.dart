@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/teacher/task_edit_page/task_edit_page.dart';
+import 'package:task_manager/theme/light_color.dart';
 import 'package:task_manager/utils/mixins/verbose_date.dart';
 
 class TaskPreviewTeacher extends StatelessWidget with VerboseDate {
@@ -38,8 +39,13 @@ class TaskPreviewTeacher extends StatelessWidget with VerboseDate {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    getVerboseDateTimeRepresentation(task.dueDate),
-                    style: Theme.of(context).textTheme.headline4,
+                    getVerboseDateTime(task.dueDate),
+                    style: !_isDateMissed()
+                        ? Theme.of(context).textTheme.headline4
+                        : Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: LightColor.warn),
                   ),
                 ),
               ],
@@ -57,7 +63,7 @@ class TaskPreviewTeacher extends StatelessWidget with VerboseDate {
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 2, 4, 12),
               child: LinearProgressIndicator(
-                value: findLinearProgress(),
+                value: _findLinearProgress(),
               ),
             ),
           ],
@@ -66,10 +72,19 @@ class TaskPreviewTeacher extends StatelessWidget with VerboseDate {
     );
   }
 
-  double findLinearProgress() {
+  double _findLinearProgress() {
     if (task.studentsOverall == 0) {
       return 1;
     }
     return task.completedBy / task.studentsOverall;
+  }
+
+  bool _isDateMissed() {
+    DateTime now = DateTime.now();
+    var taskDate = task.dueDate;
+
+    if (taskDate.difference(now).inDays == 0) return false;
+
+    return taskDate.isBefore(now);
   }
 }

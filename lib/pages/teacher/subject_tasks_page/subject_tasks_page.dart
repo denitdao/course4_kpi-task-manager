@@ -64,11 +64,29 @@ class _TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SubjectTasksCubit, SubjectTasksState>(
-      buildWhen: (prev, curr) => prev.tasks != curr.tasks,
+      buildWhen: (prev, curr) =>
+          prev.tasks != curr.tasks || prev.dataStatus != curr.dataStatus,
       builder: (context, state) {
         if (state.dataStatus == ExternalDataStatus.loading) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+        if (state.tasks.isEmpty) {
+          return LayoutBuilder(
+            builder: (context, constraints) => RefreshIndicator(
+              onRefresh: context.read<SubjectTasksCubit>().loadData,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth,
+                  ),
+                  child: const Center(child: Text("Empty")),
+                ),
+              ),
+            ),
           );
         }
         return RefreshIndicator(

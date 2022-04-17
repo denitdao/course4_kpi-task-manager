@@ -16,7 +16,7 @@ class FormDatePicker extends StatelessWidget {
     return OutlinedButton(
       child: date == null
           ? const Text('Choose the date')
-          : Text(intl.DateFormat.yMd().format(date!)),
+          : Text(intl.DateFormat('EEEE d/MM/y').format(date!)),
       onPressed: () async {
         var now = DateTime.now();
         var newDate = await showDatePicker(

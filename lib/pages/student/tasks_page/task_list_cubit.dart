@@ -12,6 +12,7 @@ import 'package:task_manager/repositories/subject_repository.dart';
 import 'package:task_manager/repositories/task_repository.dart';
 
 part 'task_list_cubit.freezed.dart';
+
 part 'task_list_state.dart';
 
 @injectable
@@ -113,5 +114,12 @@ class TaskListCubit extends Cubit<TaskListState> {
         .map((e) => e.id == taskId ? e.copyWith(isDone: status) : e)
         .toList();
     emit(state.copyWith(tasks: newTasks));
+  }
+
+  List<Task> getOrderedTasks() {
+    var tasks = state.tasks;
+    var orderedList = tasks.where((element) => !element.isDone).toList();
+    orderedList.addAll(tasks.where((element) => element.isDone).toList());
+    return orderedList;
   }
 }

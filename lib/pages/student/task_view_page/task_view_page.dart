@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
+import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/student/task_view_page/task_view_cubit.dart';
-import 'package:task_manager/widgets/date_picker.dart';
+import 'package:task_manager/theme/light_color.dart';
 
 class TaskViewPage extends StatefulWidget {
   const TaskViewPage({Key? key, required this.id}) : super(key: key);
@@ -47,11 +49,31 @@ class _TaskViewForm extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SelectableText(
-                    state.task!.title,
-                    style: Theme.of(context).textTheme.headline1,
+                  Row(
+                    children: [
+                      Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: state.task!.isDone,
+                        onChanged: (bool? status) {
+                          context
+                              .read<TaskViewCubit>()
+                              .changeTaskStatus(status ?? !state.task!.isDone);
+                        },
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Text(
+                            state.task!.title,
+                            style: Theme.of(context).textTheme.headline1,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
                     child: Text(
                       'Subtasks',
@@ -82,7 +104,7 @@ class _TaskViewForm extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
                     child: Text(
@@ -90,9 +112,16 @@ class _TaskViewForm extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
-                  FormDatePicker(
-                    date: state.task!.dueDate,
-                    onChanged: (_) => null,
+                  OutlinedButton(
+                    child: Text(
+                        DateFormat('EEEE d/MM/y').format(state.task!.dueDate)),
+                    onPressed: () => null,
+                    style: OutlinedButton.styleFrom(
+                      side: _isDateMissed(state.task!)
+                          ? const BorderSide(color: LightColor.warn, width: 2)
+                          : const BorderSide(
+                              color: LightColor.shadedPrimary, width: 2),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 12),
@@ -115,5 +144,15 @@ class _TaskViewForm extends StatelessWidget {
         );
       },
     );
+  }
+
+  bool _isDateMissed(Task task) {
+    DateTime now = DateTime.now();
+    var taskDate = task.dueDate;
+
+    if (task.isDone) return false;
+    if (taskDate.difference(now).inDays == 0) return false;
+
+    return taskDate.isBefore(now);
   }
 }
