@@ -3,13 +3,12 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:task_manager/core/injection/injection.dart';
-import 'package:task_manager/repositories/auth_repository.dart';
 import 'package:task_manager/models/forms/email_input.dart';
 import 'package:task_manager/models/forms/password_input.dart';
-
-part 'login_state.dart';
+import 'package:task_manager/repositories/auth_repository.dart';
 
 part 'login_cubit.freezed.dart';
+part 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {

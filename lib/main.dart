@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/core/injection/injection.dart';
-import 'package:task_manager/pages/error_page.dart';
-import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:task_manager/core/injection/injection.dart';
+import 'package:task_manager/pages/login_page/login_page.dart';
 import 'package:task_manager/pages/register_page/register_page.dart';
 import 'package:task_manager/pages/settings/settings_page.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
-import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_page.dart';
+import 'package:task_manager/screens/error.dart';
+import 'package:task_manager/screens/splash.dart';
 import 'package:task_manager/theme/theme.dart';
 
 import 'core/auth/secrets.dart';
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginPage(),
         '/register': (_) => const RegisterPage(),
         '/settings': (_) => const SettingsPage(),
-        '/error': (BuildContext context) => const ErrorPage(),
+        '/error': (BuildContext context) => const ErrorScreen(),
         '/subject_create': (_) => const SubjectCreatePage(),
         '/subjects': (_) => const SubjectListPage(),
         '/all': (_) => const TaskListPage(pageTitle: 'All Tasks'),

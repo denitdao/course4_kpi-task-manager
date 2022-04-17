@@ -1,19 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
-import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
-import 'package:task_manager/models/group.dart';
 import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/repositories/group_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
 import 'package:task_manager/repositories/task_repository.dart';
 
 part 'subject_tasks_cubit.freezed.dart';
-
 part 'subject_tasks_state.dart';
 
 @injectable

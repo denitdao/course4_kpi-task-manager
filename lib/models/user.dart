@@ -1,10 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:task_manager/models/task.dart';
-
-import 'group.dart';
 
 part 'user.freezed.dart';
-
 part 'user.g.dart';
 
 @freezed

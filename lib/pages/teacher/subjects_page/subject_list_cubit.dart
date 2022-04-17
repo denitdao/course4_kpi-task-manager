@@ -10,7 +10,6 @@ import 'package:task_manager/repositories/group_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
 
 part 'subject_list_cubit.freezed.dart';
-
 part 'subject_list_state.dart';
 
 @injectable

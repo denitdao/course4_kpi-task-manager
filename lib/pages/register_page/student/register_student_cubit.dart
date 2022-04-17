@@ -12,9 +12,8 @@ import 'package:task_manager/models/group.dart';
 import 'package:task_manager/repositories/auth_repository.dart';
 import 'package:task_manager/repositories/group_repository.dart';
 
-part 'register_student_state.dart';
-
 part 'register_student_cubit.freezed.dart';
+part 'register_student_state.dart';
 
 @injectable
 class RegisterStudentCubit extends Cubit<RegisterStudentState> {

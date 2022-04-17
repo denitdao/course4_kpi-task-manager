@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:task_manager/constants/supabase_constants.dart';
 import 'package:task_manager/core/auth/auth_state.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/pages/register_page/register_cubit.dart';

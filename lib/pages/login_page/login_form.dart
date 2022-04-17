@@ -1,4 +1,4 @@
-import 'package:either_dart/src/future_extension.dart';
+import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -21,7 +21,6 @@ class LoginForm extends StatelessWidget {
         } else if (state.status.isSubmissionSuccess) {
           getIt<UserRepository>().loadCurrentUser().either(
             (left) => {
-              print('ERROR loading user data'),
               Navigator.pushNamedAndRemoveUntil(
                   context, '/login', (route) => false)
             },

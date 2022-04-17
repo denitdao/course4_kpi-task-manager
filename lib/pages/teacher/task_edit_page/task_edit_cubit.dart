@@ -1,32 +1,24 @@
 import 'package:bloc/bloc.dart';
-import 'package:either_dart/src/future_extension.dart';
+import 'package:either_dart/either.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/forms/non_empty_date_input.dart';
 import 'package:task_manager/models/forms/text_input.dart';
-import 'package:task_manager/models/group.dart';
-import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/models/task.dart';
-import 'package:task_manager/repositories/group_repository.dart';
-import 'package:task_manager/repositories/subject_repository.dart';
 import 'package:task_manager/repositories/task_repository.dart';
 
-part 'task_edit_state.dart';
-
 part 'task_edit_cubit.freezed.dart';
+part 'task_edit_state.dart';
 
 @injectable
 class TaskEditCubit extends Cubit<TaskEditState> {
-  late GroupRepository _groupRepository;
   late TaskRepository _taskRepository;
 
   TaskEditCubit() : super(const TaskEditState.loaded()) {
-    _groupRepository = getIt<GroupRepository>();
     _taskRepository = getIt<TaskRepository>();
   }
 

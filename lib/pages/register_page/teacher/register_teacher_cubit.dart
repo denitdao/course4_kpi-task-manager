@@ -8,9 +8,8 @@ import 'package:task_manager/models/forms/name_input.dart';
 import 'package:task_manager/models/forms/password_input.dart';
 import 'package:task_manager/repositories/auth_repository.dart';
 
-part 'register_teacher_state.dart';
-
 part 'register_teacher_cubit.freezed.dart';
+part 'register_teacher_state.dart';
 
 @injectable
 class RegisterTeacherCubit extends Cubit<RegisterTeacherState> {

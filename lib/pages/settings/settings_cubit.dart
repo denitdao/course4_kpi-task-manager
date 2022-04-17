@@ -1,24 +1,18 @@
 import 'package:bloc/bloc.dart';
-import 'package:either_dart/src/future_extension.dart';
+import 'package:either_dart/either.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/forms/name_input.dart';
-import 'package:task_manager/models/forms/non_empty_text_input.dart';
 import 'package:task_manager/models/group.dart';
-import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/models/user.dart';
 import 'package:task_manager/repositories/auth_repository.dart';
-import 'package:task_manager/repositories/group_repository.dart';
-import 'package:task_manager/repositories/subject_repository.dart';
 import 'package:task_manager/repositories/user_repository.dart';
 
-part 'settings_state.dart';
-
 part 'settings_cubit.freezed.dart';
+part 'settings_state.dart';
 
 @injectable
 class SettingsCubit extends Cubit<SettingsState> {

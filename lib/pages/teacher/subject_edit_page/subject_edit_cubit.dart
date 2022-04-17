@@ -1,21 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:either_dart/src/future_extension.dart';
+import 'package:either_dart/either.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
-import 'package:task_manager/models/forms/non_empty_text_input.dart';
 import 'package:task_manager/models/forms/text_input.dart';
 import 'package:task_manager/models/group.dart';
 import 'package:task_manager/models/subject.dart';
 import 'package:task_manager/repositories/group_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
 
-part 'subject_edit_state.dart';
-
 part 'subject_edit_cubit.freezed.dart';
+
+part 'subject_edit_state.dart';
 
 @injectable
 class SubjectEditCubit extends Cubit<SubjectEditState> {
@@ -87,7 +85,8 @@ class SubjectEditCubit extends Cubit<SubjectEditState> {
 
     response.either(
       (left) => emit(state.copyWith(
-        errorMessage: left, // todo Replace in all places to the custom message
+        errorMessage: left,
+        // todo Replace in all places to the custom message
         status: FormzStatus.submissionFailure,
       )),
       (right) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),

@@ -4,7 +4,7 @@ import 'package:task_manager/core/auth/student_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
 import 'package:task_manager/pages/student/widgets/drawer.dart';
-import 'package:task_manager/widgets/task_preview_student.dart';
+import 'package:task_manager/pages/student/widgets/task_preview.dart';
 
 class TaskListPage extends StatefulWidget {
   const TaskListPage({Key? key, this.range, this.subjectId, this.pageTitle})

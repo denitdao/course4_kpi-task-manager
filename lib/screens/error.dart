@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ErrorPage extends StatefulWidget {
-  const ErrorPage({Key? key}) : super(key: key);
+class ErrorScreen extends StatefulWidget {
+  const ErrorScreen({Key? key}) : super(key: key);
 
   @override
-  _ErrorPageState createState() => _ErrorPageState();
+  _ErrorScreenState createState() => _ErrorScreenState();
 }
 
-class _ErrorPageState extends State<ErrorPage> {
+class _ErrorScreenState extends State<ErrorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

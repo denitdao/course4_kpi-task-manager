@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -7,7 +6,6 @@ import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/pages/teacher/task_create_page/task_create_cubit.dart';
 import 'package:task_manager/widgets/date_picker.dart';
-import 'package:intl/intl.dart' as intl;
 
 
 class TaskCreatePage extends StatefulWidget {
@@ -46,7 +44,7 @@ class _TaskCreateForm extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             leading: _SaveTaskButton(),
-            title: Text('New Task'),
+            title: const Text('New Task'),
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(12, 24, 12, 12),

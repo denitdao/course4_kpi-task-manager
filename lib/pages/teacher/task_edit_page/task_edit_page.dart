@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -52,7 +51,7 @@ class _TaskEditForm extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               leading: _SaveTaskButton(),
-              title: Text('Edit Task'),
+              title: const Text('Edit Task'),
               actions: [
                 IconButton(
                   onPressed: () {

@@ -5,7 +5,7 @@ import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/teacher/subject_create_page/subject_create_page.dart';
 import 'package:task_manager/pages/teacher/subjects_page/subject_list_cubit.dart';
 import 'package:task_manager/pages/teacher/widgets/drawer.dart';
-import 'package:task_manager/widgets/subject_preview.dart';
+import 'package:task_manager/pages/teacher/widgets/subject_preview.dart';
 
 class SubjectListPage extends StatefulWidget {
   const SubjectListPage({Key? key, this.groupId}) : super(key: key);

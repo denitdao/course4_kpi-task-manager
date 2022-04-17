@@ -4,7 +4,7 @@ import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/teacher/subject_tasks_page/subject_tasks_cubit.dart';
 import 'package:task_manager/pages/teacher/task_create_page/task_create_page.dart';
-import 'package:task_manager/widgets/task_preview_teacher.dart';
+import 'package:task_manager/pages/teacher/widgets/task_preview.dart';
 
 class SubjectTasksPage extends StatefulWidget {
   const SubjectTasksPage({Key? key, required this.subjectId}) : super(key: key);

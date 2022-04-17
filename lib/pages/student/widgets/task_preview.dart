@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/pages/student/task_view_page/task_view_page.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_cubit.dart';
 import 'package:task_manager/pages/student/tasks_page/task_list_page.dart';
+import 'package:task_manager/utils/mixins/verbose_date.dart';
 
-class TaskPreviewStudent extends StatelessWidget {
+class TaskPreviewStudent extends StatelessWidget with VerboseDate {
   const TaskPreviewStudent({Key? key, required this.task}) : super(key: key);
 
   final Task task;
@@ -95,46 +94,5 @@ class TaskPreviewStudent extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String getVerboseDateTimeRepresentation(DateTime dateTime) {
-    DateTime now = DateTime.now();
-    DateTime justNow = now.subtract(Duration(minutes: 1));
-    DateTime localDateTime = dateTime.toLocal();
-
-    String roughTimeString = DateFormat('jm').format(dateTime);
-
-    if (localDateTime.day == now.day &&
-        localDateTime.month == now.month &&
-        localDateTime.year == now.year) {
-      return roughTimeString;
-    }
-
-    DateTime tomorrow = now.subtract(Duration(days: -1));
-
-    if (localDateTime.day == tomorrow.day &&
-        localDateTime.month == now.month &&
-        localDateTime.year == now.year) {
-      return 'Tomorrow';
-    }
-
-    DateTime yesterday = now.subtract(Duration(days: 1));
-
-    if (localDateTime.day == yesterday.day &&
-        localDateTime.month == now.month &&
-        localDateTime.year == now.year) {
-      return 'Yesterday';
-    }
-
-    if (-4 < now.difference(localDateTime).inDays &&
-        now.difference(localDateTime).inDays < 4) {
-      String weekday = DateFormat('EEEE').format(localDateTime);
-
-      return '$weekday';
-      // return '$weekday, $roughTimeString';
-    }
-
-    return '${DateFormat('yMd').format(dateTime)}';
-    // return '${DateFormat('yMd').format(dateTime)}, $roughTimeString';
   }
 }
