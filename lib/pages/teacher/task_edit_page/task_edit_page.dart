@@ -6,6 +6,7 @@ import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/pages/teacher/task_edit_page/task_edit_cubit.dart';
+import 'package:task_manager/pages/teacher/task_statistics_page/task_statistics_page.dart';
 import 'package:task_manager/theme/light_color.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
@@ -55,7 +56,14 @@ class _TaskEditForm extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/error");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskStatisticsPage(
+                          id: state.task!.id,
+                        ),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.bar_chart_rounded),
                   tooltip: 'Go to task statistics',
