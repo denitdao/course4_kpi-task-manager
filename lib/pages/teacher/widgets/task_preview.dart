@@ -29,11 +29,14 @@ class TaskPreviewTeacher extends StatelessWidget with VerboseDate {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.ideographic,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(4, 12, 4, 4),
-                  child: Text(
-                    task.title,
-                    style: Theme.of(context).textTheme.headline3,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(4, 12, 4, 4),
+                    child: Text(
+                      task.title,
+                      style: Theme.of(context).textTheme.headline3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 Padding(

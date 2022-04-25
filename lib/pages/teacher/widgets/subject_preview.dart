@@ -38,6 +38,7 @@ class SubjectPreview extends StatelessWidget {
               child: Text(
                 subject.title,
                 style: Theme.of(context).textTheme.headline2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             Row(
