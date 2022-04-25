@@ -50,6 +50,14 @@ class TaskCreateCubit extends Cubit<TaskCreateState> {
       ));
       return;
     }
+    final startDate = state.startDate.value;
+    if (!state.startDate.valid) {
+      emit(state.copyWith(
+        errorMessage: 'Specify a start date!',
+        status: FormzStatus.submissionFailure,
+      ));
+      return;
+    }
     final dueDate = state.dueDate.value;
     if (!state.dueDate.valid) {
       emit(state.copyWith(
@@ -64,6 +72,7 @@ class TaskCreateCubit extends Cubit<TaskCreateState> {
       state.subject!.id,
       taskTitle,
       state.taskDescription.value,
+      startDate!,
       dueDate!,
     );
 
@@ -80,7 +89,8 @@ class TaskCreateCubit extends Cubit<TaskCreateState> {
     final taskTitle = NonEmptyText.dirty(value);
     emit(state.copyWith(
       taskTitle: taskTitle,
-      status: Formz.validate([taskTitle, state.taskDescription, state.dueDate]),
+      status: Formz.validate(
+          [taskTitle, state.taskDescription, state.startDate, state.dueDate]),
     ));
   }
 
@@ -88,15 +98,19 @@ class TaskCreateCubit extends Cubit<TaskCreateState> {
     final taskDescription = NonEmptyText.dirty(value);
     emit(state.copyWith(
       taskDescription: taskDescription,
-      status: Formz.validate([state.taskTitle, taskDescription, state.dueDate]),
+      status: Formz.validate(
+          [state.taskTitle, taskDescription, state.startDate, state.dueDate]),
     ));
   }
 
-  void onTaskDueDateChange(DateTime value) {
-    final dueDate = NonNullDate.dirty(value);
+  void onTaskDateChange(DateTime start, DateTime end) {
+    final startDate = NonNullDate.dirty(start);
+    final dueDate = NonNullDate.dirty(end);
     emit(state.copyWith(
+      startDate: startDate,
       dueDate: dueDate,
-      status: Formz.validate([state.taskTitle, state.taskDescription, dueDate]),
+      status: Formz.validate(
+          [state.taskTitle, state.taskDescription, startDate, dueDate]),
     ));
   }
 }

@@ -9,12 +9,14 @@ class TaskRepository {
     String subjectId,
     String taskTitle,
     String taskDescription,
+    DateTime startDate,
     DateTime dueDate,
   ) async {
     final newTask = {
       'subject_id': subjectId,
       'title': taskTitle,
       'description': taskDescription,
+      'start_date': startDate.toString(),
       'due_date': dueDate.toString(),
     };
 
@@ -30,6 +32,7 @@ class TaskRepository {
       'title': task.title,
       'description': task.description,
       'due_date': task.dueDate.toString(),
+      'start_date': task.startDate.toString(),
       'updated_at': DateTime.now().toString(),
     };
 

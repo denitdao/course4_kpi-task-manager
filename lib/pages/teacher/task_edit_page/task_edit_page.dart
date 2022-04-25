@@ -80,11 +80,11 @@ class _TaskEditForm extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
                     child: Text(
-                      'Set Due Date',
+                      'Set Date Range',
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
-                  _TaskDueDateInput(),
+                  _TaskDateInput(),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 12),
                     child: Text(
@@ -193,15 +193,18 @@ class _TaskDescriptionInput extends StatelessWidget {
   }
 }
 
-class _TaskDueDateInput extends StatelessWidget {
+class _TaskDateInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskEditCubit, TaskEditState>(
-      buildWhen: (previous, current) => previous.dueDate != current.dueDate,
+      buildWhen: (previous, current) =>
+          previous.dueDate != current.dueDate ||
+          previous.startDate != current.startDate,
       builder: (context, state) {
-        return FormDatePicker(
-          date: state.dueDate.value,
-          onChanged: context.read<TaskEditCubit>().onTaskDueDateChange,
+        return FormDateRangePicker(
+          start: state.startDate.value,
+          end: state.dueDate.value,
+          onChanged: context.read<TaskEditCubit>().onTaskDateChange,
         );
       },
     );

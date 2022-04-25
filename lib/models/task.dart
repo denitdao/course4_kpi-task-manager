@@ -11,6 +11,7 @@ class Task with _$Task {
     String description,
     @JsonKey(name: 'subject_id') String subjectId,
     @JsonKey(name: 'due_date') DateTime dueDate,
+    @JsonKey(name: 'start_date') DateTime startDate,
     @JsonKey(name: 'created_at') DateTime createdAt,
     @JsonKey(name: 'updated_at') DateTime updatedAt,
     @JsonKey(name: 'deleted') bool isDeleted, {

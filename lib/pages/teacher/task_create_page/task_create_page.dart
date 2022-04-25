@@ -7,7 +7,6 @@ import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/pages/teacher/task_create_page/task_create_cubit.dart';
 import 'package:task_manager/widgets/date_picker.dart';
 
-
 class TaskCreatePage extends StatefulWidget {
   const TaskCreatePage({Key? key, required this.subjectId}) : super(key: key);
 
@@ -55,11 +54,11 @@ class _TaskCreateForm extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
                   child: Text(
-                    'Set Due Date',
+                    'Set Date Range',
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
-                _TaskDueDateInput(),
+                _TaskDateInput(),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 24, 0, 12),
                   child: Text(
@@ -137,7 +136,8 @@ class _TaskDescriptionInput extends StatelessWidget {
           decoration: InputDecoration(
             hintText: 'Description',
             filled: true,
-            errorText: state.taskDescription.invalid ? 'empty description' : null,
+            errorText:
+                state.taskDescription.invalid ? 'empty description' : null,
             border: const OutlineInputBorder(),
           ),
           maxLines: 50,
@@ -148,15 +148,18 @@ class _TaskDescriptionInput extends StatelessWidget {
   }
 }
 
-class _TaskDueDateInput extends StatelessWidget {
+class _TaskDateInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskCreateCubit, TaskCreateState>(
-      buildWhen: (previous, current) => previous.dueDate != current.dueDate,
+      buildWhen: (previous, current) =>
+          previous.dueDate != current.dueDate ||
+          previous.startDate != current.startDate,
       builder: (context, state) {
-        return FormDatePicker(
-          date: state.dueDate.value,
-          onChanged: context.read<TaskCreateCubit>().onTaskDueDateChange,
+        return FormDateRangePicker(
+          start: state.startDate.value,
+          end: state.dueDate.value,
+          onChanged: context.read<TaskCreateCubit>().onTaskDateChange,
         );
       },
     );

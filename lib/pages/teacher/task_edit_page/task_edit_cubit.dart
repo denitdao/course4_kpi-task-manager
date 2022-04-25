@@ -12,6 +12,7 @@ import 'package:task_manager/models/task.dart';
 import 'package:task_manager/repositories/task_repository.dart';
 
 part 'task_edit_cubit.freezed.dart';
+
 part 'task_edit_state.dart';
 
 @injectable
@@ -31,7 +32,7 @@ class TaskEditCubit extends Cubit<TaskEditState> {
       ));
       onTaskTitleChange(state.task!.title);
       onTaskDescriptionChange(state.task!.description);
-      onTaskDueDateChange(state.task!.dueDate);
+      onTaskDateChange(state.task!.startDate, state.task!.dueDate);
     } else {
       emit(state.copyWith(
         errorMessage: taskResponse.left,
@@ -50,6 +51,14 @@ class TaskEditCubit extends Cubit<TaskEditState> {
       ));
       return;
     }
+    final startDate = state.startDate.value;
+    if (!state.startDate.valid) {
+      emit(state.copyWith(
+        errorMessage: 'Specify a start date!',
+        status: FormzStatus.submissionFailure,
+      ));
+      return;
+    }
     final dueDate = state.dueDate.value;
     if (!state.dueDate.valid) {
       emit(state.copyWith(
@@ -64,6 +73,7 @@ class TaskEditCubit extends Cubit<TaskEditState> {
       title: taskTitle,
       description: state.taskDescription.value,
       dueDate: dueDate!,
+      startDate: startDate!,
     );
     final response = _taskRepository.updateTask(updatedTask);
 
@@ -95,7 +105,8 @@ class TaskEditCubit extends Cubit<TaskEditState> {
     final taskTitle = NonEmptyText.dirty(value);
     emit(state.copyWith(
       taskTitle: taskTitle,
-      status: Formz.validate([taskTitle, state.taskDescription, state.dueDate]),
+      status: Formz.validate(
+          [taskTitle, state.taskDescription, state.startDate, state.dueDate]),
     ));
   }
 
@@ -103,15 +114,19 @@ class TaskEditCubit extends Cubit<TaskEditState> {
     final taskDescription = NonEmptyText.dirty(value);
     emit(state.copyWith(
       taskDescription: taskDescription,
-      status: Formz.validate([state.taskTitle, taskDescription, state.dueDate]),
+      status: Formz.validate(
+          [state.taskTitle, taskDescription, state.startDate, state.dueDate]),
     ));
   }
 
-  void onTaskDueDateChange(DateTime value) {
-    final dueDate = NonNullDate.dirty(value);
+  void onTaskDateChange(DateTime start, DateTime end) {
+    final startDate = NonNullDate.dirty(start);
+    final dueDate = NonNullDate.dirty(end);
     emit(state.copyWith(
+      startDate: startDate,
       dueDate: dueDate,
-      status: Formz.validate([state.taskTitle, state.taskDescription, dueDate]),
+      status: Formz.validate(
+          [state.taskTitle, state.taskDescription, startDate, dueDate]),
     ));
   }
 }

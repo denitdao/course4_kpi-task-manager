@@ -8,6 +8,7 @@ class TaskCreateState with _$TaskCreateState {
     @Default(NonEmptyText.pure()) NonEmptyText taskTitle,
     @Default(NonEmptyText.pure()) NonEmptyText taskDescription,
     @Default(NonNullDate.pure()) NonNullDate dueDate,
+    @Default(NonNullDate.pure()) NonNullDate startDate,
     @Default(FormzStatus.pure) FormzStatus status,
     String? errorMessage,
   }) = TaskState;
