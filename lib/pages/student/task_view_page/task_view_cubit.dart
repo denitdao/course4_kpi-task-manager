@@ -19,19 +19,21 @@ class TaskViewCubit extends Cubit<TaskViewState> {
     _taskRepository = getIt<TaskRepository>();
   }
 
-  Future<void> loadData(String id) async {
-    final taskResponse = await _taskRepository.getTaskById(id);
+  Future<void> loadData(String taskId) async {
+    final studentId = supabase.auth.currentUser!.id;
+
+    final taskResponse = await _taskRepository.getTaskByIdAndStudent(taskId, studentId);
 
     taskResponse.either(
       (left) => emit(state.copyWith(
         errorMessage: left,
         dataStatus: ExternalDataStatus.fail,
-        id: id,
+        id: taskId,
       )),
       (right) => emit(state.copyWith(
         task: right,
         dataStatus: ExternalDataStatus.success,
-        id: id,
+        id: taskId,
       )),
     );
   }

@@ -93,6 +93,24 @@ class TaskRepository {
     return const Left('No task found');
   }
 
+  Future<Either<String, Task>> getTaskByIdAndStudent(String taskId, String studentId) async {
+    final response = await supabase
+        .rpc('get_all_tasks_by_student', params: {'student_id': studentId})
+        .eq('id', taskId)
+        .limit(1)
+        .execute();
+
+    final error = response.error;
+    if (error != null && response.status != 406) return Left(error.message);
+
+    final data = response.data;
+
+    if (data != null) {
+      return Right(Task.fromJson(data[0]));
+    }
+    return const Left('No task found');
+  }
+
   Future<Either<String, List<Task>>> getAllTasksBySubject(
       String subjectId) async {
     final response = await supabase

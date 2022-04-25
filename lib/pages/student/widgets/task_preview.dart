@@ -69,13 +69,16 @@ class TaskPreviewStudent extends StatelessWidget with VerboseDate {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        task.description,
-                        style: Theme.of(context).textTheme.bodyText2,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          task.description,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
                       ),
                     ),
                   ],
