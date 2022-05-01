@@ -1,13 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:either_dart/either.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
-import 'package:task_manager/models/forms/non_empty_date_input.dart';
-import 'package:task_manager/models/forms/text_input.dart';
 import 'package:task_manager/models/task.dart';
 import 'package:task_manager/models/user_task_status.dart';
 import 'package:task_manager/repositories/stats_repository.dart';
@@ -69,10 +66,19 @@ class TaskStatisticsCubit extends Cubit<TaskStatisticsState> {
       ..sort();
 
     List<dynamic> completionMap = [];
-    completionMap.add({
-      'x': state.task!.createdAt.toLocal(),
-      'y': 0,
-    });
+    if (completionDates.isNotEmpty) {
+      if (state.task!.startDate.isBefore(completionDates.first!)) {
+        completionMap.add({
+          'x': state.task!.startDate.toLocal(),
+          'y': 0,
+        });
+      }
+    } else {
+      completionMap.add({
+        'x': state.task!.startDate.toLocal(),
+        'y': 0,
+      });
+    }
     completionDates.forEachIndexed((index, date) {
       completionMap.add({
         'x': date!.toLocal(),

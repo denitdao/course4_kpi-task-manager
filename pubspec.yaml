@@ -32,6 +32,7 @@ dependencies:
   equatable: ^2.0.3
   formz: ^0.4.1
   syncfusion_flutter_charts: ^20.1.50
+  syncfusion_flutter_gauges: ^20.1.51
 
 dev_dependencies:
   flutter_test:

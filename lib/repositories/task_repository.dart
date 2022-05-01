@@ -160,10 +160,12 @@ class TaskRepository {
 
   Future<Either<String, List<Task>>> getAllTasksByStudentInRange(
       String studentId, int range) async {
+    var now = DateTime.now();
+    var finalDay = DateTime(now.year, now.month, now.day).add(Duration(days: range - 1));
     final response = await supabase
         .rpc('get_all_tasks_by_student', params: {'student_id': studentId})
         .eq('deleted', false)
-        .lte('due_date', DateTime.now().add(Duration(days: range)))
+        .lte('due_date', finalDay)
         .order('due_date', ascending: true)
         .execute();
 
