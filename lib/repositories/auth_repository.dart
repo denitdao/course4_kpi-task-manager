@@ -41,7 +41,7 @@ class AuthRepository {
     );
 
     final signUpError = signUpResponse.error;
-    if (signUpError != null) return Left(signUpError.message);
+    if (signUpError != null) return const Left("Please verify email or password");
 
     if (signUpResponse.data == null && signUpResponse.user == null) {
       return const Left(
@@ -79,7 +79,7 @@ class AuthRepository {
     );
 
     final signUpError = signUpResponse.error;
-    if (signUpError != null) return Left(signUpError.message);
+    if (signUpError != null) return const Left("Please verify email or password");
 
     if (signUpResponse.data == null && signUpResponse.user == null) {
       return const Left(
