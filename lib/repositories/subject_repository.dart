@@ -131,7 +131,7 @@ class SubjectRepository {
 
     final data = response.data;
 
-    if (data != null) {
+    if (data != null && data.length > 0) {
       return Right(data.first['subjects'].map<Subject>((i) {
         return Subject.fromJson(i);
       }).toList());
