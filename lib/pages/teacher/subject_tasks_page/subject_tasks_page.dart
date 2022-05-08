@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
+import 'package:task_manager/pages/teacher/subject_statistics_page/subject_statistics_page.dart';
 import 'package:task_manager/pages/teacher/subject_tasks_page/subject_tasks_cubit.dart';
 import 'package:task_manager/pages/teacher/task_create_page/task_create_page.dart';
 import 'package:task_manager/pages/teacher/widgets/task_preview.dart';
@@ -42,8 +43,15 @@ class _SubjectTasksPage extends StatelessWidget {
                 : Text('${state.subject!.title} Tasks'),
             actions: [
               IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/error");
+                onPressed: state.subject == null ? null : () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubjectStatisticsPage(
+                        id: state.subject!.id,
+                      ),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.bar_chart_rounded),
                 tooltip: 'Go to subject statistics',

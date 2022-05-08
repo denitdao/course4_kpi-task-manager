@@ -22,4 +22,20 @@ class StatsRepository {
     }
     return const Right([]);
   }
+
+  Future<Either<String, List<dynamic>>> getWeeklyCompletionRate(
+      String subjectId) async {
+    final response = await supabase.rpc('get_weekly_task_completion',
+        params: {'p_subject_id': subjectId}).execute();
+
+    final error = response.error;
+    if (error != null && response.status != 406) return Left(error.message);
+
+    final data = response.data;
+
+    if (data != null) {
+      return Right(data);
+    }
+    return const Right([]);
+  }
 }
