@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:task_manager/core/auth/teacher_auth_required_state.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
@@ -51,28 +50,17 @@ class _SubjectOverview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
                     child: Text(state.subject!.title,
                         style: Theme.of(context).textTheme.headline3),
                   ),
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 12, 0, 6),
+                    padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
                     child: _WeeklyPerformanceChart(),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
                     child: _LastTaskPerformanceChart(),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 12),
-                    child: Text("lalala"),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
-                    child: Divider(
-                      height: 1,
-                      thickness: 1,
-                    ),
                   ),
                 ],
               ),

@@ -6,8 +6,10 @@ import 'package:injectable/injectable.dart';
 import 'package:task_manager/core/injection/injection.dart';
 import 'package:task_manager/models/enums/external_data_status.dart';
 import 'package:task_manager/models/subject.dart';
+import 'package:task_manager/models/task.dart';
 import 'package:task_manager/repositories/stats_repository.dart';
 import 'package:task_manager/repositories/subject_repository.dart';
+import 'package:task_manager/repositories/task_repository.dart';
 
 part 'subject_statistics_cubit.freezed.dart';
 
@@ -15,10 +17,12 @@ part 'subject_statistics_state.dart';
 
 @injectable
 class SubjectStatisticsCubit extends Cubit<SubjectStatisticsState> {
+  late TaskRepository _taskRepository;
   late SubjectRepository _subjectRepository;
   late StatsRepository _statsRepository;
 
   SubjectStatisticsCubit() : super(const SubjectStatisticsState.loaded()) {
+    _taskRepository = getIt<TaskRepository>();
     _subjectRepository = getIt<SubjectRepository>();
     _statsRepository = getIt<StatsRepository>();
   }
@@ -42,6 +46,16 @@ class SubjectStatisticsCubit extends Cubit<SubjectStatisticsState> {
         await _statsRepository.getWeeklyCompletionRate(subjectId);
     if (subjectCompletionRateResponse.isRight) {
       _getWeeklyPerformance(subjectCompletionRateResponse.right);
+    } else {
+      emit(state.copyWith(
+        errorMessage: subjectCompletionRateResponse.left,
+        dataStatus: ExternalDataStatus.fail,
+      ));
+      return;
+    }
+    final tasksResponse = await _taskRepository.getAllTasksBySubject(subjectId);
+    if (tasksResponse.isRight) {
+      _getLastTaskPerformance(tasksResponse.right);
       emit(state.copyWith(
         dataStatus: ExternalDataStatus.success,
       ));
@@ -52,7 +66,6 @@ class SubjectStatisticsCubit extends Cubit<SubjectStatisticsState> {
       ));
       return;
     }
-    _getLastTaskPerformance();
   }
 
   void _getWeeklyPerformance(List<dynamic> rawPerformance) {
@@ -79,13 +92,12 @@ class SubjectStatisticsCubit extends Cubit<SubjectStatisticsState> {
     emit(state.copyWith(weeklyPerformance: performanceList));
   }
 
-  void _getLastTaskPerformance() {
-    List<dynamic> taskList = [
-      {'x': "1", 'y': 0.92},
-      {'x': "2", 'y': 0.92},
-      {'x': "3", 'y': 0.91},
-      {'x': "4", 'y': 0.94},
-    ];
+  void _getLastTaskPerformance(List<Task> lastTasks) {
+    lastTasks.sort((a, b) => b.dueDate.compareTo(a.dueDate));
+    List<dynamic> taskList = lastTasks
+        .take(4)
+        .map((e) => {'x': e.title, 'y': e.completedBy / e.studentsOverall})
+        .toList();
 
     emit(state.copyWith(lastTaskPerformance: taskList));
   }
